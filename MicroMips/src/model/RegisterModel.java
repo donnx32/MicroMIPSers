@@ -2,25 +2,21 @@ package model;
 
 import javax.swing.table.AbstractTableModel;
 
-public class OpCodeModel extends AbstractTableModel {
+public class RegisterModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private String[] header;
 	private Object[][] data;
 
-	public OpCodeModel() {
+	public RegisterModel() {
 		initializeDefaultModel();
 	}
 
 	public void initializeDefaultModel() {
 		System.out.println("Initializing OpCode model...");
 
-		header = new String[] { "Instruction", "B: 31-26", "B: 25-21", "B: 20-16", "B: 15-11", "B: 10-6", "B: 5-0",
-				"Hex" };
-		data = new Object[][] {
-				{ "DADDIU R1, R1, #0001", "11011", "11111", "00001", "00000", "00000", "00000", "64010001" },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, {null, null, null, null, null, null, null,null} };
+		header = new String[] { "Register", "Value" };
+		data = new Object[][] { { "0", "0000000000000000" }, { "1", "0000000000000002" }, };
 
 		for (int row = 0; row < getRowCount(); row++) {
 			for (int col = 0; col < getColumnCount(); col++)

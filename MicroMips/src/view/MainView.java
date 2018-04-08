@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.OpCodeModel;
+import model.RegisterModel;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -40,6 +41,7 @@ public class MainView extends JFrame {
 	private JSeparator separator_3;
 	private JSeparator separator_4;
 	private OpCodeModel ocModel;
+	private RegisterModel rModel ;
 	
 	public MainView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,24 +131,36 @@ public class MainView extends JFrame {
 		separator_4 = new JSeparator();
 		separator_4.setBounds(965, 31, 84, 9);
 		mainPanel.add(separator_4);
+	
+		ocModel = new OpCodeModel();
 		
 		scrlPaneOpCode = new JScrollPane();
 		scrlPaneOpCode.setBounds(447, 40, 500, 400);
 		mainPanel.add(scrlPaneOpCode);
 		
 		tblOpCode = new JTable();
+		tblOpCode.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		tblOpCode.setForeground(Color.BLACK);
 		scrlPaneOpCode.setViewportView(tblOpCode);
+		scrlPaneOpCode.getViewport().setBackground(Color.decode("#f6e6dc"));
 		tblOpCode.setBackground(Color.WHITE);
-		
-		ocModel = new OpCodeModel();
 		tblOpCode.setModel(ocModel);
+		tblOpCode.getColumnModel().getColumn(0).setPreferredWidth(250);
+		tblOpCode.getColumnModel().getColumn(7).setPreferredWidth(95);
+		tblOpCode.setRowHeight(23);
 		
 		scrlPaneRegister = new JScrollPane();
 		scrlPaneRegister.setBounds(969, 40, 198, 400);
 		mainPanel.add(scrlPaneRegister);
 		
+		rModel = new RegisterModel();
 		tblRegister = new JTable();
+		tblRegister.setModel(rModel);
+		tblRegister.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tblRegister.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		scrlPaneRegister.setViewportView(tblRegister);
+		scrlPaneRegister.getViewport().setBackground(Color.decode("#f6e6dc"));
 		tblRegister.setBackground(Color.WHITE);
+		tblRegister.setRowHeight(23);
 	}
 }

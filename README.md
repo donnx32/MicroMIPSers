@@ -5,6 +5,7 @@
  - [x] Added Initial GUI
  - [x] Table Renderers
  - [ ] Functionality
+ - [ ] **ERROR HANDLING**
  - [ ] More Functionality
  - [ ] Debug
  - [ ] Classes

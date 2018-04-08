@@ -6,6 +6,7 @@
  - [x] Table Renderers
  - [ ] Functionality
  - [ ] **ERROR HANDLING**
+ - [ ] Hex processing
  - [ ] More Functionality
  - [ ] Debug
  - [ ] Classes

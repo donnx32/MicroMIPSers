@@ -13,14 +13,11 @@ public class OpCodeModel extends AbstractTableModel {
 	}
 
 	public void initializeDefaultModel() {
-		System.out.println("Initializing OpCode model...");
+		System.out.println("Initializing Default OpCode model...");
 
 		header = new String[] { "Instruction", "B: 31-26", "B: 25-21", "B: 20-16", "B: 15-11", "B: 10-6", "B: 5-0",
 				"Hex" };
-		data = new Object[][] {
-				{ "DADDIU R1, R1, #0001", "11011", "11111", "00001", "00000", "00000", "00000", "64010001" },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, {null, null, null, null, null, null, null,null} };
+		data = new Object[][] {};
 
 		for (int row = 0; row < getRowCount(); row++) {
 			for (int col = 0; col < getColumnCount(); col++)

@@ -13,10 +13,10 @@ public class RegisterModel extends AbstractTableModel {
 	}
 
 	public void initializeDefaultModel() {
-		System.out.println("Initializing OpCode model...");
+		System.out.println("Initializing Default Register model...");
 
 		header = new String[] { "Register", "Value" };
-		data = new Object[][] { { "0", "0000000000000000" }, { "1", "0000000000000002" }, };
+		data = new Object[][] { };
 
 		for (int row = 0; row < getRowCount(); row++) {
 			for (int col = 0; col < getColumnCount(); col++)

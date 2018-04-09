@@ -1,12 +1,13 @@
 package model;
 
 public class Instruction {
-	private String value;
+	private static String nextAddress = "100";
+	private String address;
 	private String opCode;
+	private String value;
+	private String label;
 	private String hex;
 	private String bin;
-	private String address;
-	private static String nextAddress = "100";
 
 	public Instruction(String code) {
 		this.setValue(code);
@@ -61,5 +62,13 @@ public class Instruction {
 	
 	public String getAddress() {
 		return address;
+	}
+	
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
+	public String getLabel() {
+		return label;
 	}
 }

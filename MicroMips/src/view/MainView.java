@@ -198,7 +198,6 @@ public class MainView extends JFrame {
 
 				for (Instruction i : instructList) {
 					ocModel.addRowWithData(i);
-					System.out.println(i.getAddress());
 				}
 			}
 		});

@@ -11,31 +11,66 @@ public class CodeParser {
 
 	public void parseCode() {
 		for (Instruction i : instructList) {
+			System.out.println("OUTER");
+			System.out.println(i);
 			i.findOpCode();
 			i.setBin(i.getOpCode());
 
 			String[] temp = i.getValue().split(" ");
-
-			if (temp[0].equalsIgnoreCase("DADDIU") || temp[0].equalsIgnoreCase("ORI")) {
-				i.setBin(i.getBin() + "" + zeroExtendR(toBin(getDigit(temp[2]))));
-				i.setBin(i.getBin() + "" + zeroExtendR(toBin(getDigit(temp[1]))));
-				i.setBin(i.getBin() + "" + zeroExtendI(hexToBin(temp[3].substring(1, 5))));
-				i.setHex(zeroExtendH(binToHex(i.getBin())));
-			} else if (temp[0].equalsIgnoreCase("LD") || temp[0].equalsIgnoreCase("SD")) {
-				i.setBin(i.getBin() + "" + zeroExtendR(toBin(getDigit(temp[2].substring(5, temp[2].length())))));
-				i.setBin(i.getBin() + "" + zeroExtendR(toBin(getDigit(temp[1]))));
-				i.setBin(i.getBin() + "" + zeroExtendI(hexToBin(temp[2].substring(0, 4))));
-				i.setHex(zeroExtendH(binToHex(i.getBin())));
-			} else if (temp[0].equalsIgnoreCase("DADDU")) {
-				i.setBin(i.getBin() + "" + zeroExtendR(toBin(getDigit(temp[2]))));
-				i.setBin(i.getBin() + "" + zeroExtendR(toBin(getDigit(temp[3]))));
-				i.setBin(i.getBin() + "" + zeroExtendR(toBin(getDigit(temp[1]))));
-				i.setBin(i.getBin() + "" + "00000101101"); // SA(5) = 00000, FUNC(6) = 101101
-				i.setHex(zeroExtendH(binToHex(i.getBin())));
-			} else if (temp[0].equalsIgnoreCase("BC")) {
-				// to be done when Line names are up e.g L1, L2, etc....
-			} else if (temp[0].equalsIgnoreCase("BNEZC")) {
-				// to be done when Line names are up e.g L1, L2, etc....
+			
+			int x = 0;
+			if (temp[0].contains(":")) {
+				i.setLabel(temp[0].substring(0, temp[0].length() - 1));
+				x = 1;
+			}
+			
+			if (temp[0 + x].equalsIgnoreCase("DADDIU") || temp[0 + x].equalsIgnoreCase("ORI")) {
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[2 + x])), 5));
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 5));
+				i.setBin(i.getBin() + zeroExtend(hexToBin(temp[3 + x].substring(1, 5)), 16));
+				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
+			} else if (temp[0 + x].equalsIgnoreCase("LD") || temp[0 + x].equalsIgnoreCase("SD")) {
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[2 + x].substring(5, temp[2].length()))), 5));
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 2));
+				i.setBin(i.getBin() + zeroExtend(hexToBin(temp[2+ x].substring(0, 4)), 16));
+				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
+			} else if (temp[0 + x].equalsIgnoreCase("DADDU")) {
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[2 + x])), 5));
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[3 + x])), 5));
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 5));
+				i.setBin(i.getBin() + "00000101101"); // SA(5) = 00000, FUNC(6) = 101101
+				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
+			} else if (temp[0 + x].equalsIgnoreCase("BC")) {
+				for (Instruction in : instructList) {
+					if(in.getLabel() != null ) {
+						if(in.getLabel().equals(temp[2 + x])) {
+							int diff = ((Integer.parseInt(i.getAddress(), 16) - Integer.parseInt(in.getAddress(), 16)) /  Integer.parseInt("4", 16)) - 1;
+							
+							if(diff > 0 )
+								diff *= -1;
+							
+							i.setBin(i.getBin() + zeroExtend(toBin(Integer.toString(diff)), 26));
+							break;
+						}
+					}
+				}
+				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
+			} else if (temp[0 + x].equalsIgnoreCase("BNEZC")) {
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 5));
+				for (Instruction in : instructList) {
+					if(in.getLabel() != null ) {
+						if(in.getLabel().equals(temp[2 + x])) {
+							int diff = ((Integer.parseInt(i.getAddress(), 16) - Integer.parseInt(in.getAddress(), 16)) /  Integer.parseInt("4", 16)) - 1;
+							
+							if(diff > 0 )
+								diff *= -1;
+							
+							i.setBin(i.getBin() + zeroExtend(toBin(Integer.toString(diff)), 21));
+							break;
+						}
+					}
+				}
+				i.setHex(zeroExtend(binToHex(i.getBin()), 8));;
 			} else {
 
 			}
@@ -45,13 +80,13 @@ public class CodeParser {
 	public void executeInstructions() {
 
 	}
-
-	public String zeroExtendR(String bin) {
+	
+	public String zeroExtend(String s, int n) {
 		StringBuilder sb = null;
 
-		if (bin.length() < 5) {
+		if (s.length() < n) {
 			sb = new StringBuilder();
-			int diff = 5 - bin.length();
+			int diff = n - s.length();
 
 			for (int i = 0; i < diff; i++) {
 				sb.append("0");
@@ -59,45 +94,9 @@ public class CodeParser {
 		}
 
 		if (sb != null)
-			return sb.toString() + "" + bin;
+			return sb.toString() + "" + s;
 
-		return bin;
-	}
-
-	public String zeroExtendI(String bin) {
-		StringBuilder sb = null;
-
-		if (bin.length() < 16) {
-			sb = new StringBuilder();
-			int diff = 16 - bin.length();
-
-			for (int i = 0; i < diff; i++) {
-				sb.append("0");
-			}
-		}
-
-		if (sb != null)
-			return sb.toString() + "" + bin;
-
-		return bin;
-	}
-
-	public String zeroExtendH(String hex) {
-		StringBuilder sb = null;
-
-		if (hex.length() < 8) {
-			sb = new StringBuilder();
-			int diff = 8 - hex.length();
-
-			for (int i = 0; i < diff; i++) {
-				sb.append("0");
-			}
-		}
-
-		if (sb != null)
-			return sb.toString() + "" + hex;
-
-		return hex;
+		return s;
 	}
 
 	public String toBin(String s) {

@@ -102,13 +102,13 @@ public class MainView extends JFrame {
 		lblOpcodes.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 
 		lblCode = new JLabel("Please enter code here");
-		lblCode.setBounds(36, 10, 254, 19);
+		lblCode.setBounds(24, 10, 254, 19);
 		mainPanel.add(lblCode);
 		lblCode.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 
 		lblGpRegisters = new JLabel("GP Registers");
 		lblGpRegisters.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		lblGpRegisters.setBounds(967, 10, 98, 19);
+		lblGpRegisters.setBounds(969, 10, 98, 19);
 		mainPanel.add(lblGpRegisters);
 
 		textArea = new JTextArea();
@@ -116,7 +116,7 @@ public class MainView extends JFrame {
 		mainPanel.add(textArea);
 
 		separator_1 = new JSeparator();
-		separator_1.setBounds(36, 31, 162, 9);
+		separator_1.setBounds(24, 29, 162, 9);
 		mainPanel.add(separator_1);
 
 		separator_2 = new JSeparator();
@@ -130,10 +130,10 @@ public class MainView extends JFrame {
 		mainPanel.add(separator_3);
 
 		separator_4 = new JSeparator();
-		separator_4.setBounds(965, 31, 84, 9);
+		separator_4.setBounds(972, 29, 84, 9);
 		mainPanel.add(separator_4);
 
-		ocModel = new OpCodeModel(instructList);
+		ocModel = new OpCodeModel();
 
 		scrlPaneOpCode = new JScrollPane();
 		scrlPaneOpCode.setBounds(447, 40, 500, 400);
@@ -151,7 +151,7 @@ public class MainView extends JFrame {
 		tblOpCode.setRowHeight(23);
 
 		scrlPaneRegister = new JScrollPane();
-		scrlPaneRegister.setBounds(969, 40, 198, 400);
+		scrlPaneRegister.setBounds(970, 40, 198, 400);
 		mainPanel.add(scrlPaneRegister);
 
 		rModel = new RegisterModel();
@@ -172,20 +172,22 @@ public class MainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String[] temp = textArea.getText().split("\n");
 				instructList.clear();
-				
+				ocModel.clear();
+
 				for (String code : temp)
 					instructList.add(new Instruction(code));
-				
+
 				cP.parseCode();
-				
+
 				for (Instruction i : instructList)
 					ocModel.addRowWithData(i);
-				
+
 			}
 		});
 
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ocModel.clear();
 			}
 		});
 

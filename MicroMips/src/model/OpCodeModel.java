@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 public class OpCodeModel extends AbstractTableModel {
-	
+
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Instruction> instructList;
 	private String[] header;
 	private ArrayList<RowData> data;
 
-	public OpCodeModel(ArrayList<Instruction> instructList) {
+	public OpCodeModel() {
 		initializeDefaultModel();
-		this.instructList = instructList;
 	}
 
 	public void initializeDefaultModel() {
@@ -22,7 +20,7 @@ public class OpCodeModel extends AbstractTableModel {
 		header = new String[] { "Instruction", "B: 31-26", "B: 25-21", "B: 20-16", "B: 15-11", "B: 10-6", "B: 5-0",
 				"Hex" };
 		data = new ArrayList<RowData>();
-				
+
 		for (int row = 0; row < getRowCount(); row++) {
 			for (int col = 0; col < getColumnCount(); col++)
 				fireTableCellUpdated(row, col);
@@ -40,12 +38,12 @@ public class OpCodeModel extends AbstractTableModel {
 	public int getRowCount() {
 		return data.size();
 	}
-	
+
 	public void addRow() {
 		data.add(new RowData());
 		fireTableRowsInserted(getRowCount(), getRowCount());
 	}
-	
+
 	public void addRowWithData(Instruction instruct) {
 		addRow();
 		setValueAt(instruct.getValue(), getRowCount() - 1, 0);
@@ -58,23 +56,29 @@ public class OpCodeModel extends AbstractTableModel {
 		setValueAt(instruct.getHex(), getRowCount() - 1, 7);
 	}
 	
+	public void clear() {
+		while(getRowCount() != 0) {
+			removeRow(getRowCount() - 1);
+		}
+	}
+
 	public void removeRow(int row) {
 		data.remove(row);
 		fireTableRowsDeleted(row, row);
 	}
-	
+
 	public Object getValueAt(int row, int col) {
 		RowData rData = data.get(row);
 		return rData.getValueAtCol(col);
 	}
-	
+
 	public void setValueAt(Object value, int row, int col) {
 		RowData rData = data.get(row);
 		rData.setValueAtCol(value, col);
 		fireTableCellUpdated(row, col);
 	}
-	
+
 	public boolean isCellEditable(int row, int column) {
 		return false;
-	}	
+	}
 }

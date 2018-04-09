@@ -1,4 +1,5 @@
 package client;
+
 import java.awt.EventQueue;
 
 import view.MainView;

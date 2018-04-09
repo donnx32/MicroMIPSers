@@ -52,7 +52,7 @@ public class MainView extends JFrame {
 	private InputRegisterView iRV;
 
 	public MainView() {
-		setTitle("MicroMipsers");
+		setTitle("MicroMIPSers");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1225, 550);
 		contentPane = new JPanel();
@@ -61,6 +61,7 @@ public class MainView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		setResizable(false);
 
 		iRV = new InputRegisterView();
 		instructList = new ArrayList<Instruction>();
@@ -190,14 +191,15 @@ public class MainView extends JFrame {
 				String[] temp = textArea.getText().split("\n");
 				instructList.clear();
 				ocModel.clear();
-
-				for (String code : temp)
-					instructList.add(new Instruction(code));
+				for (String line : temp)
+					instructList.add(new Instruction(line));
 
 				cP.parseCode();
 
-				for (Instruction i : instructList)
+				for (Instruction i : instructList) {
 					ocModel.addRowWithData(i);
+					System.out.println(i.getAddress());
+				}
 			}
 		});
 

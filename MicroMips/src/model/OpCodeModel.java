@@ -47,12 +47,12 @@ public class OpCodeModel extends AbstractTableModel {
 	public void addRowWithData(Instruction instruct) {
 		addRow();
 		setValueAt(instruct.getValue(), getRowCount() - 1, 0);
-		setValueAt(instruct.getB31to26(), getRowCount() - 1, 1);
-		setValueAt(instruct.getB25to21(), getRowCount() - 1, 2);
-		setValueAt(instruct.getB20to16(), getRowCount() - 1, 3);
-		setValueAt(instruct.getB15to11(), getRowCount() - 1, 4);
-		setValueAt(instruct.getB10to6(), getRowCount() - 1, 5);
-		setValueAt(instruct.getB5to0(), getRowCount() - 1, 6);
+		setValueAt(instruct.getBin().substring(0,6), getRowCount() - 1, 1);
+		setValueAt(instruct.getBin().substring(6,11), getRowCount() - 1, 2);
+		setValueAt(instruct.getBin().substring(11,16), getRowCount() - 1, 3);
+		setValueAt(instruct.getBin().substring(16,21), getRowCount() - 1, 4);
+		setValueAt(instruct.getBin().substring(21,26), getRowCount() - 1, 5);
+		setValueAt(instruct.getBin().substring(26,32), getRowCount() - 1, 6);
 		setValueAt(instruct.getHex(), getRowCount() - 1, 7);
 	}
 	

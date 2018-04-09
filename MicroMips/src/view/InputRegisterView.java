@@ -34,7 +34,8 @@ public class InputRegisterView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
-
+		setResizable(false);
+		
 		initializeComponents();
 		generateListeners();
 	}
@@ -45,7 +46,7 @@ public class InputRegisterView extends JFrame {
 		panel.setBounds(10, 11, 264, 139);
 		contentPane.add(panel);
 		panel.setLayout(null);
-
+		
 		pnlBtnOK = new JPanel();
 		pnlBtnOK.setBackground(new Color(203, 201, 201));
 		pnlBtnOK.setBounds(25, 99, 100, 30);

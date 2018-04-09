@@ -4,16 +4,14 @@ public class Instruction {
 	private String value;
 	private String opCode;
 	private String hex;
-	private String b31to0;
-	private String b31to26;
-	private String b25to21;
-	private String b20to16;
-	private String b15to11;
-	private String b10to6;
-	private String b5to0;
+	private String bin;
+	private String address;
+	private static String nextAddress = "100";
 
 	public Instruction(String code) {
 		this.setValue(code);
+		this.setAddress(nextAddress);
+		nextAddress = Integer.toString((Integer.parseInt(nextAddress, 16) + Integer.parseInt("4", 16)), 16);
 	}
 	
 	public void findOpCode() {
@@ -23,17 +21,6 @@ public class Instruction {
 				break;
 			}
 		}
-	}
-	
-	public void splitBin() {
-		String temp = getB31to0();
-		
-		setB31to26(temp.substring(0,6));
-		setB25to21(temp.substring(6,11));
-		setB20to16(temp.substring(11,16));
-		setB15to11(temp.substring(16,21));
-		setB10to6(temp.substring(21,26));
-		setB5to0(temp.substring(26,32));
 	}
 
 	public String getValue() {
@@ -59,61 +46,20 @@ public class Instruction {
 	public void setHex(String hex) {
 		this.hex = hex.toUpperCase();
 	}
-
-	public String getB31to0() {
-		return b31to0;
-	}
-
-	public void setB31to0(String b31to0) {
-		this.b31to0 = b31to0;
-	}
-
-	public String getB31to26() {
-		return b31to26;
-	}
-
-	public void setB31to26(String b31to26) {
-		this.b31to26 = b31to26;
-	}
-
-	public String getB25to21() {
-		return b25to21;
-	}
-
-	public void setB25to21(String b25to21) {
-		this.b25to21 = b25to21;
-	}
-
-	public String getB20to16() {
-		return b20to16;
-	}
-
-	public void setB20to16(String b20to16) {
-		this.b20to16 = b20to16;
-	}
-
-	public String getB15to11() {
-		return b15to11;
-	}
-
-	public void setB15to11(String b15to11) {
-		this.b15to11 = b15to11;
-	}
-
-	public String getB10to6() {
-		return b10to6;
-	}
-
-	public void setB10to6(String b10to6) {
-		this.b10to6 = b10to6;
-	}
-
-	public String getB5to0() {
-		return b5to0;
-	}
-
-	public void setB5to0(String b5to0) {
-		this.b5to0 = b5to0;
+	
+	public void setBin(String bin) {
+		this.bin = bin.toUpperCase();
 	}
 	
+	public String getBin() {
+		return bin;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address.toUpperCase();
+	}
+	
+	public String getAddress() {
+		return address;
+	}
 }

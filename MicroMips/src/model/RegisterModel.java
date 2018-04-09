@@ -9,7 +9,7 @@ public class RegisterModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private String[] header;
 	private ArrayList<RowData> data;
-	public static ArrayList<Register> regList = new ArrayList<Register>();
+	public static ArrayList<Register> regList;
 
 	public RegisterModel() {
 		initializeDefaultModel();
@@ -18,7 +18,7 @@ public class RegisterModel extends AbstractTableModel {
 	public void initializeDefaultModel() {
 		header = new String[] { "Register", "Value" };
 		data = new ArrayList<RowData>();
-		// regList = new ArrayList<Register>();
+		regList = new ArrayList<Register>();
 		for (int row = 0; row < getRowCount(); row++) {
 			for (int col = 0; col < getColumnCount(); col++)
 				fireTableCellUpdated(row, col);

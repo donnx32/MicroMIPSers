@@ -1,89 +1,107 @@
 package model;
 
 public class Cycle {
-	private Instruction IR;
-	private String NPC;
-	private String A;
-	private String B;
-	private String IMM;
-	private String ALUOUTPUT;
-	private int COND;
-	private String PC;
-	private String LMD;
+	private String iR;
+	private String nPC;
+	private String a;
+	private String b;
+	private String iMM;
+	private String aLUOUTPUT;
+	private String cOND;
+	private String pC;
+	private String lMD;
+	private String range;
+	private String rN;
 
 	public Cycle() {
 
 	}
 
-	public Instruction getIR() {
-		return IR;
+	public String getiR() {
+		return iR;
 	}
 
-	public void setIR(Instruction iR) {
-		IR = iR;
+	public void setiR(String iR) {
+		this.iR = iR;
 	}
 
-	public String getNPC() {
-		return NPC;
+	public String getnPC() {
+		return nPC;
 	}
 
-	public void setNPC(String nPC) {
-		NPC = nPC;
+	public void setnPC(String nPC) {
+		this.nPC = nPC;
 	}
 
 	public String getA() {
-		return A;
+		return a;
 	}
 
 	public void setA(String a) {
-		A = a;
+		this.a = a;
 	}
 
 	public String getB() {
-		return B;
+		return b;
 	}
 
 	public void setB(String b) {
-		B = b;
+		this.b = b;
 	}
 
-	public String getIMM() {
-		return IMM;
+	public String getiMM() {
+		return iMM;
 	}
 
-	public void setIMM(String iMM) {
-		IMM = iMM;
+	public void setiMM(String iMM) {
+		this.iMM = iMM;
 	}
 
-	public String getALUOUTPUT() {
-		return ALUOUTPUT;
+	public String getaLUOUTPUT() {
+		return aLUOUTPUT;
 	}
 
-	public void setALUOUTPUT(String aLUOUTPUT) {
-		ALUOUTPUT = aLUOUTPUT;
+	public void setaLUOUTPUT(String aLUOUTPUT) {
+		this.aLUOUTPUT = aLUOUTPUT;
 	}
 
-	public int getCOND() {
-		return COND;
+	public String getcOND() {
+		return cOND;
 	}
 
-	public void setCOND(int cOND) {
-		COND = cOND;
+	public void setcOND(String cOND) {
+		this.cOND = cOND;
 	}
 
-	public String getPC() {
-		return PC;
+	public String getpC() {
+		return pC;
 	}
 
-	public void setPC(String pC) {
-		PC = pC;
+	public void setpC(String pC) {
+		this.pC = pC;
 	}
 
-	public String getLMD() {
-		return LMD;
+	public String getlMD() {
+		return lMD;
 	}
 
-	public void setLMD(String lMD) {
-		LMD = lMD;
+	public void setlMD(String lMD) {
+		this.lMD = lMD;
+	}
+
+	public String getRange() {
+		return range;
+	}
+
+	public void setRange(String range) {
+		this.range = range;
+	}
+
+	public String getrN() {
+		return rN;
+	}
+
+	public void setrN(String rN) {
+		this.rN = rN;
 	}
 }

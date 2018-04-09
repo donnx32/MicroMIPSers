@@ -133,8 +133,8 @@ public class MainView extends JFrame {
 		scrlPaneOpCode.getViewport().setBackground(Color.decode("#f6e6dc"));
 		tblOpCode.setBackground(Color.WHITE);
 		tblOpCode.setModel(ocModel);
-		tblOpCode.getColumnModel().getColumn(0).setPreferredWidth(250);
-		tblOpCode.getColumnModel().getColumn(7).setPreferredWidth(95);
+		tblOpCode.getColumnModel().getColumn(0).setPreferredWidth(230);
+		tblOpCode.getColumnModel().getColumn(7).setPreferredWidth(125);
 		tblOpCode.setRowHeight(23);
 
 		scrlPaneRegister = new JScrollPane();

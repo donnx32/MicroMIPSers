@@ -7,9 +7,10 @@
  - [X] Functionality
  - [ ] **ERROR HANDLING**
  - [x] Hex/bin/dec processing
- - [ ] More Functionality
+ - [x] More Functionality
  - [ ] Debug
- - [ ] Classes
-  - [ ] Code Parser
+ - [ ] **Cycles**
+ - [ ] **Reflect code to memory**
+  - [x] Code Parser
   - [ ] more? idk
  - [ ] Functionality lol.

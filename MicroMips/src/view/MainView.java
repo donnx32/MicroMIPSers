@@ -1,10 +1,9 @@
 package view;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -27,12 +26,15 @@ public class MainView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel mainPanel;
+	private JPanel pnlBtnLoad;
+	private JPanel pnlBtnReset;
+	private JPanel pnlBtnClear;
+	private JLabel lblLoad;
+	private JLabel lblReset;
+	private JLabel lblClear;
 	private JLabel lblOpcodes;
 	private JLabel lblCode;
 	private JLabel lblGpRegisters;
-	private Button btnLoad;
-	private Button btnReset;
-	private Button btnClear;
 	private JTextArea textArea;
 	private JTable tblOpCode;
 	private JTable tblRegister;
@@ -44,11 +46,13 @@ public class MainView extends JFrame {
 	private JSeparator separator_3;
 	private JSeparator separator_4;
 	private OpCodeModel ocModel;
-	private RegisterModel rModel;
-	private static ArrayList<Instruction> instructList;
+	private static RegisterModel rModel;
+	private  ArrayList<Instruction> instructList;
 	private CodeParser cP;
+	private InputRegisterView iRV;
 
 	public MainView() {
+		setTitle("MicroMipsers");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1225, 550);
 		contentPane = new JPanel();
@@ -58,6 +62,7 @@ public class MainView extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
+		iRV = new InputRegisterView();
 		instructList = new ArrayList<Instruction>();
 		cP = new CodeParser(instructList);
 
@@ -73,24 +78,6 @@ public class MainView extends JFrame {
 		mainPanel.setBounds(10, 11, 1189, 489);
 		contentPane.add(mainPanel);
 		mainPanel.setLayout(null);
-
-		btnLoad = new Button("Load");
-		btnLoad.setBounds(56, 449, 90, 30);
-		mainPanel.add(btnLoad);
-		btnLoad.setActionCommand("");
-		btnLoad.setFont(new Font("Arial Black", Font.PLAIN, 14));
-
-		btnReset = new Button("Reset");
-		btnReset.setBounds(165, 449, 90, 30);
-		mainPanel.add(btnReset);
-		btnReset.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		btnReset.setActionCommand("");
-
-		btnClear = new Button("Clear");
-		btnClear.setBounds(270, 449, 90, 30);
-		mainPanel.add(btnClear);
-		btnClear.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		btnClear.setActionCommand("");
 
 		separator = new JSeparator();
 		separator.setBounds(447, 29, 74, 9);
@@ -121,12 +108,12 @@ public class MainView extends JFrame {
 
 		separator_2 = new JSeparator();
 		separator_2.setOrientation(SwingConstants.VERTICAL);
-		separator_2.setBounds(434, 40, 12, 400);
+		separator_2.setBounds(434, 10, 12, 469);
 		mainPanel.add(separator_2);
 
 		separator_3 = new JSeparator();
 		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(957, 40, 2, 400);
+		separator_3.setBounds(957, 10, 12, 469);
 		mainPanel.add(separator_3);
 
 		separator_4 = new JSeparator();
@@ -157,19 +144,49 @@ public class MainView extends JFrame {
 		rModel = new RegisterModel();
 		tblRegister = new JTable();
 		tblRegister.setModel(rModel);
+		rModel.initializeDefaultRegisters();
 		tblRegister.getColumnModel().getColumn(1).setPreferredWidth(200);
 		tblRegister.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		scrlPaneRegister.setViewportView(tblRegister);
 		scrlPaneRegister.getViewport().setBackground(Color.decode("#f6e6dc"));
 		tblRegister.setBackground(Color.WHITE);
 		tblRegister.setRowHeight(23);
+
+		pnlBtnLoad = new JPanel();
+		pnlBtnLoad.setBackground(new Color(203, 201, 201));
+		pnlBtnLoad.setBounds(60, 449, 100, 30);
+		mainPanel.add(pnlBtnLoad);
+
+		lblLoad = new JLabel("Load");
+		lblLoad.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		pnlBtnLoad.add(lblLoad);
+
+		pnlBtnReset = new JPanel();
+		pnlBtnReset.setBackground(new Color(203, 201, 201));
+		pnlBtnReset.setBounds(170, 449, 100, 30);
+		mainPanel.add(pnlBtnReset);
+
+		lblReset = new JLabel("Reset");
+		lblReset.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		pnlBtnReset.add(lblReset);
+
+		pnlBtnClear = new JPanel();
+
+		pnlBtnClear.setBackground(new Color(203, 201, 201));
+		pnlBtnClear.setBounds(280, 449, 100, 30);
+		mainPanel.add(pnlBtnClear);
+
+		lblClear = new JLabel("Clear");
+		lblClear.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		pnlBtnClear.add(lblClear);
 	}
 
 	public void generateListeners() {
 		System.out.println("Generating listeners...");
 
-		btnLoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		pnlBtnLoad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				String[] temp = textArea.getText().split("\n");
 				instructList.clear();
 				ocModel.clear();
@@ -181,20 +198,34 @@ public class MainView extends JFrame {
 
 				for (Instruction i : instructList)
 					ocModel.addRowWithData(i);
-
 			}
 		});
 
-		btnReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		pnlBtnReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				ocModel.clear();
+				rModel.reset();
 			}
 		});
 
-		btnClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		pnlBtnClear.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				textArea.setText("");
 			}
 		});
+
+		tblRegister.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+
+				iRV.getLblReg().setText(Integer.toString((int)tblRegister.getValueAt(tblRegister.getSelectedRow(), 0)));
+				iRV.setVisible(true);
+			}
+		});
+	}
+	
+	public static RegisterModel getrModel() {
+		return rModel;
 	}
 }

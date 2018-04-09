@@ -41,7 +41,7 @@ public class Instruction {
 	}
 
 	public void setValue(String value) {
-		this.value = value;
+		this.value = value.toUpperCase();
 	}
 
 	public String getOpCode() {
@@ -49,7 +49,7 @@ public class Instruction {
 	}
 
 	public void setOpCode(String opCode) {
-		this.opCode = opCode;
+		this.opCode = opCode.toUpperCase();
 	}
 
 	public String getHex() {
@@ -57,7 +57,7 @@ public class Instruction {
 	}
 
 	public void setHex(String hex) {
-		this.hex = hex;
+		this.hex = hex.toUpperCase();
 	}
 
 	public String getB31to0() {

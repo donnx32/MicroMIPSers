@@ -25,7 +25,7 @@ public class CyclesModel {
 		cycle.setiMM(instruction.getBin().substring(17, 32));
 		
 		//LD
-		if (instruction.getBin().substring(1, 6).equals("110111"))
+		if (instruction.getOpCode().equals("110111"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
 			int temp2 = Integer.parseInt(cycle.getiMM());
@@ -44,7 +44,7 @@ public class CyclesModel {
 		}
 		
 		//SD
-		else if (instruction.getBin().substring(1, 6).equals("111111"))
+		else if (instruction.getOpCode().equals("111111"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
 			int temp2 = Integer.parseInt(cycle.getiMM());
@@ -62,7 +62,7 @@ public class CyclesModel {
 		}
 		
 		//DADDIU
-		else if (instruction.getBin().substring(1, 6).equals("011001"))
+		else if (instruction.getOpCode().equals("011001"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
 			int temp2 = Integer.parseInt(cycle.getiMM());
@@ -81,7 +81,7 @@ public class CyclesModel {
 		}
 		
 		//DADDU
-		else if (instruction.getBin().substring(1, 6).equals("000000"))
+		else if (instruction.getOpCode().equals("000000"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
 			int temp2 = Integer.parseInt(cycle.getB());
@@ -99,13 +99,20 @@ public class CyclesModel {
 		}
 		
 		//BC
-		else if (instruction.getBin().substring(1, 6).equals("110010"))
+		else if (instruction.getOpCode().equals("110010"))
 		{
-		
-		//	ALUOUTPUT = Sir's formula;
+			int count;
+			count = Integer.parseInt(cycle.getiMM(), 2);
+			int tempNPC = Integer.parseInt(cycle.getnPC());
+			
+			while (count > 0)
+			{
+				tempNPC = tempNPC + 4;
+			}
+			cycle.setaLUOUTPUT(Integer.toHexString(tempNPC));
 			cycle.setcOND("1");
 			
-		//	PC = Address Where the Jump is;
+			cycle.setpC(cycle.getaLUOUTPUT());
 			cycle.setlMD("N/A");
 			cycle.setRange("N/A");
 			
@@ -114,16 +121,31 @@ public class CyclesModel {
 		
 		
 		//BNEZC
-		else if (instruction.getBin().substring(1, 6).equals("111110"))
+		else if (instruction.getOpCode().equals("111110"))
 		{
-			//ALUOUTPUT = Sir's formula;
+			int count;
+			count = Integer.parseInt(cycle.getiMM(), 2);
+			int tempNPC = Integer.parseInt(cycle.getnPC());
+			
+			while (count > 0)
+			{
+				tempNPC = tempNPC + 4;
+			}
+			cycle.setaLUOUTPUT(Integer.toHexString(tempNPC));
+			
 			//If A is 0 then tru
 			if (cycle.getA().equals("00000"))
+			{
 				cycle.setcOND("0");
+				cycle.setnPC(cycle.getnPC());
+			}
 			else 
-				cycle.setcOND("1");;
+			{
+				cycle.setcOND("1");
+				cycle.setpC(cycle.getaLUOUTPUT());
+			}
 					
-			//PC = Where the Jump is;
+				
 			cycle.setlMD("N/A");
 			cycle.setRange("N/A");
 				
@@ -132,7 +154,7 @@ public class CyclesModel {
 		}
 		
 		//ORI
-		else if (instruction.getBin().substring(1, 6).equals("111110"))
+		else if (instruction.getOpCode().equals("111110"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
 			int temp2 = Integer.parseInt(cycle.getiMM());
@@ -156,18 +178,20 @@ public class CyclesModel {
 	public double convertToDec(double address)
 	{
 		//turns hex to dec
-		 if(instruction.getHex().contains("A") ||instruction.getHex().contains("B") || 
-			instruction.getHex().contains("C") || instruction.getHex().contains("D") || 
-			instruction.getHex().contains("E") ||instruction.getHex().contains("F"))
+		 if(instruction.getAddress().contains("A") ||instruction.getAddress().contains("B") || 
+			instruction.getAddress().contains("C") ||instruction.getAddress().contains("D") || 
+			instruction.getAddress().contains("E") ||instruction.getAddress().contains("F"))
 		 {   
-			 address  = Integer.parseInt(instruction.getHex(), 16);
+			 address  = Integer.parseInt(instruction.getAddress(), 16);
 			 address = (double) address;
 		 }
 		 
 		 else
 		 {
-			 address = Double.parseDouble(String.valueOf(instruction.getHex()));
+			 address = Double.parseDouble(String.valueOf(instruction.getAddress()));
 		 }
+		 
+		 address = Integer.parseInt(instruction.getAddress(), 16);
 		 
 		 return address;
 	}

@@ -4,9 +4,9 @@
 ### Things To Do:
  - [x] Added Initial GUI
  - [x] Table Renderers
- - [ ] Functionality
+ - [X] Functionality
  - [ ] **ERROR HANDLING**
- - [ ] Hex processing
+ - [x] Hex/bin/dec processing
  - [ ] More Functionality
  - [ ] Debug
  - [ ] Classes

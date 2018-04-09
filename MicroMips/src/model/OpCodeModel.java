@@ -46,6 +46,7 @@ public class OpCodeModel extends AbstractTableModel {
 
 	public void addRowWithData(Instruction instruct) {
 		addRow();
+		//System.out.println("outside " +instruct);
 		setValueAt(instruct.getValue(), getRowCount() - 1, 0);
 		setValueAt(instruct.getBin().substring(0,6), getRowCount() - 1, 1);
 		setValueAt(instruct.getBin().substring(6,11), getRowCount() - 1, 2);

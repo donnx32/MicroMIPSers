@@ -25,8 +25,15 @@ public class Instruction {
 		}
 	}
 	
-	public void exec() {
+	public void splitBin() {
+		String temp = getB31to0();
 		
+		setB31to26(temp.substring(0,6));
+		setB25to21(temp.substring(6,11));
+		setB20to16(temp.substring(11,16));
+		setB15to11(temp.substring(16,21));
+		setB10to6(temp.substring(21,26));
+		setB5to0(temp.substring(26,32));
 	}
 
 	public String getValue() {

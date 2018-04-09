@@ -13,15 +13,16 @@ public class CodeParser {
 		for (Instruction i : instructList) {
 			i.findOpCode();
 			i.setB31to0(i.getOpCode());
-			System.out.println(i.getB31to0());
+			//System.out.println(i.getB31to0());
 
 			String[] temp = i.getValue().split(" ");
 
 			if (temp[0].equalsIgnoreCase("DADDIU")) {
 				i.setB31to0(i.getB31to0() + "" + zeroExtendR(toBin(getDigit(temp[2]))));
 				i.setB31to0(i.getB31to0() + "" + zeroExtendR(toBin(getDigit(temp[1]))));
-				i.setB31to0(i.getB31to0() + "" + zeroExtendI(hexToBin(getDigit(temp[3]))));
+				i.setB31to0(i.getB31to0() + "" + zeroExtendI(hexToBin(temp[3].substring(1,5))));
 				i.setHex(binToHex(i.getB31to0()));
+				i.splitBin();
 			}
 			else if (temp[0].equalsIgnoreCase("LD")) {
 				

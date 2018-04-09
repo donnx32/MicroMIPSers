@@ -133,7 +133,7 @@ public class MainView extends JFrame {
 		separator_4.setBounds(965, 31, 84, 9);
 		mainPanel.add(separator_4);
 
-		ocModel = new OpCodeModel();
+		ocModel = new OpCodeModel(instructList);
 
 		scrlPaneOpCode = new JScrollPane();
 		scrlPaneOpCode.setBounds(447, 40, 500, 400);
@@ -177,6 +177,10 @@ public class MainView extends JFrame {
 					instructList.add(new Instruction(code));
 				
 				cP.parseCode();
+				
+				for (Instruction i : instructList)
+					ocModel.addRowWithData(i);
+				
 			}
 		});
 

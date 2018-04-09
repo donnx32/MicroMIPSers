@@ -1,15 +1,7 @@
 package model;
 
-
 public class CyclesModel {
 	
-	String IR;
-	String NPC;
-	String A, B, IMM;
-	String ALUOUTPUT;
-	int COND;
-	String PC, LMD, RANGE;
-	String Rn;
 	Instruction instruction;
 	
 	Cycle cycle = new Cycle();

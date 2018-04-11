@@ -244,11 +244,15 @@ public class MainView extends JFrame {
 				String[] temp = txtAreaCode.getText().split("\n");
 				instructList.clear();
 				ocModel.clear();
-				for (String line : temp)
+				
+				for (String line : temp) {
+					System.out.println(line);
+					// ERROR HANDLING HERE
 					instructList.add(new Instruction(line));
+				}
 
 				cP.parseCode();
-
+				
 				for (Instruction i : instructList) {
 					ocModel.addRowWithData(i);
 				}

@@ -1,4 +1,45 @@
-package view;
+package model;
+
+import java.util.ArrayList;
+
+import javax.swing.table.AbstractTableModel;
+
+public class CycleModel extends AbstractTableModel {
+
+	private static final long serialVersionUID = 1L;
+	private ArrayList<RowData> header;
+	private ArrayList<RowData> data;
+	
+	public CycleModel() {
+		initializeDefaultModel();
+	}
+
+	public void initializeDefaultModel() {
+		System.out.println("Initializing Default Cycle model...");
+
+		header = new ArrayList<RowData>();
+		data = new ArrayList<RowData>();
+	}
+
+	public String getColumnName(int col) {
+		return header.get(col).toString();
+	}
+
+	public int getColumnCount() {
+		return header.size();
+	}
+
+	public int getRowCount() {
+		return data.size();
+	}
+
+	public void addRow() {
+		data.add(new RowData());
+		fireTableRowsInserted(getRowCount(), getRowCount());
+	}
+
+	public void addRowWithData(Instruction instruct) {
+		addRow();package view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,8 +58,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import model.CodeParser;
-import model.Cycle;
-import model.CycleModel;
 import model.Instruction;
 import model.OpCodeModel;
 import model.RegisterModel;
@@ -37,7 +76,7 @@ public class MainView extends JFrame {
 	private JLabel lblOpcodes;
 	private JLabel lblCode;
 	private JLabel lblGpRegisters;
-	private JTextArea txtAreaCode;
+	private JTextArea textArea;
 	private JTable tblOpCode;
 	private JTable tblRegister;
 	private JScrollPane scrlPaneOpCode;
@@ -49,18 +88,14 @@ public class MainView extends JFrame {
 	private JSeparator separator_4;
 	private OpCodeModel ocModel;
 	private static RegisterModel rModel;
-	private CycleModel cycleModel;
-	private ArrayList<Instruction> instructList;
-	private ArrayList<Cycle> cycleList;
+	private  ArrayList<Instruction> instructList;
 	private CodeParser cP;
 	private InputRegisterView iRV;
-	private JTable tblCycles;
-	private JTable tblData;
 
 	public MainView() {
 		setTitle("MicroMIPSers");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1225, 675);
+		setBounds(100, 100, 1225, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,7 +106,6 @@ public class MainView extends JFrame {
 
 		iRV = new InputRegisterView();
 		instructList = new ArrayList<Instruction>();
-		cycleList = new ArrayList<Cycle>();
 		cP = new CodeParser(instructList);
 
 		initializeComponents();
@@ -83,16 +117,16 @@ public class MainView extends JFrame {
 
 		mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(255, 228, 225));
-		mainPanel.setBounds(10, 11, 1189, 624);
+		mainPanel.setBounds(10, 11, 1189, 489);
 		contentPane.add(mainPanel);
 		mainPanel.setLayout(null);
 
 		separator = new JSeparator();
-		separator.setBounds(447, 29, 84, 9);
+		separator.setBounds(447, 29, 74, 9);
 		mainPanel.add(separator);
 
 		lblOpcodes = new JLabel("OpCodes");
-		lblOpcodes.setBounds(666, 10, 74, 19);
+		lblOpcodes.setBounds(445, 10, 74, 19);
 		mainPanel.add(lblOpcodes);
 		lblOpcodes.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 
@@ -103,8 +137,12 @@ public class MainView extends JFrame {
 
 		lblGpRegisters = new JLabel("GP Registers");
 		lblGpRegisters.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		lblGpRegisters.setBounds(447, 10, 98, 19);
+		lblGpRegisters.setBounds(969, 10, 98, 19);
 		mainPanel.add(lblGpRegisters);
+
+		textArea = new JTextArea();
+		textArea.setBounds(24, 40, 400, 400);
+		mainPanel.add(textArea);
 
 		separator_1 = new JSeparator();
 		separator_1.setBounds(24, 29, 162, 9);
@@ -112,22 +150,22 @@ public class MainView extends JFrame {
 
 		separator_2 = new JSeparator();
 		separator_2.setOrientation(SwingConstants.VERTICAL);
-		separator_2.setBounds(434, 10, 12, 603);
+		separator_2.setBounds(434, 10, 12, 469);
 		mainPanel.add(separator_2);
 
 		separator_3 = new JSeparator();
 		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(655, 10, 12, 603);
+		separator_3.setBounds(957, 10, 12, 469);
 		mainPanel.add(separator_3);
 
 		separator_4 = new JSeparator();
-		separator_4.setBounds(666, 29, 74, 9);
+		separator_4.setBounds(972, 29, 84, 9);
 		mainPanel.add(separator_4);
 
 		ocModel = new OpCodeModel();
 
 		scrlPaneOpCode = new JScrollPane();
-		scrlPaneOpCode.setBounds(666, 38, 500, 264);
+		scrlPaneOpCode.setBounds(447, 40, 500, 400);
 		mainPanel.add(scrlPaneOpCode);
 
 		tblOpCode = new JTable();
@@ -142,7 +180,7 @@ public class MainView extends JFrame {
 		tblOpCode.setRowHeight(23);
 
 		scrlPaneRegister = new JScrollPane();
-		scrlPaneRegister.setBounds(447, 38, 198, 264);
+		scrlPaneRegister.setBounds(970, 40, 198, 400);
 		mainPanel.add(scrlPaneRegister);
 
 		rModel = new RegisterModel();
@@ -158,7 +196,7 @@ public class MainView extends JFrame {
 
 		pnlBtnLoad = new JPanel();
 		pnlBtnLoad.setBackground(new Color(203, 201, 201));
-		pnlBtnLoad.setBounds(60, 583, 100, 30);
+		pnlBtnLoad.setBounds(60, 449, 100, 30);
 		mainPanel.add(pnlBtnLoad);
 
 		lblLoad = new JLabel("Load");
@@ -167,7 +205,7 @@ public class MainView extends JFrame {
 
 		pnlBtnReset = new JPanel();
 		pnlBtnReset.setBackground(new Color(203, 201, 201));
-		pnlBtnReset.setBounds(170, 583, 100, 30);
+		pnlBtnReset.setBounds(170, 449, 100, 30);
 		mainPanel.add(pnlBtnReset);
 
 		lblReset = new JLabel("Reset");
@@ -177,62 +215,12 @@ public class MainView extends JFrame {
 		pnlBtnClear = new JPanel();
 
 		pnlBtnClear.setBackground(new Color(203, 201, 201));
-		pnlBtnClear.setBounds(280, 583, 100, 30);
+		pnlBtnClear.setBounds(280, 449, 100, 30);
 		mainPanel.add(pnlBtnClear);
 
 		lblClear = new JLabel("Clear");
 		lblClear.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		pnlBtnClear.add(lblClear);
-
-		JScrollPane scrlPaneData = new JScrollPane();
-		scrlPaneData.setBounds(447, 349, 198, 264);
-		mainPanel.add(scrlPaneData);
-
-		tblData = new JTable();
-		scrlPaneData.setViewportView(tblData);
-
-		JLabel lblData = new JLabel("Data");
-		lblData.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		lblData.setBounds(447, 319, 40, 19);
-		mainPanel.add(lblData);
-
-		JSeparator separator_5 = new JSeparator();
-		separator_5.setBounds(447, 339, 40, 9);
-		mainPanel.add(separator_5);
-
-		JLabel lblCycles = new JLabel("Cycles");
-		lblCycles.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		lblCycles.setBounds(666, 319, 74, 19);
-		mainPanel.add(lblCycles);
-
-		JSeparator separator_6 = new JSeparator();
-		separator_6.setBounds(666, 339, 49, 9);
-		mainPanel.add(separator_6);
-
-		JScrollPane scrlPaneCycle = new JScrollPane();
-		scrlPaneCycle.setBounds(665, 349, 501, 264);
-		mainPanel.add(scrlPaneCycle);
-		
-		cycleModel = new CycleModel();
-		tblCycles = new JTable();
-		scrlPaneCycle.setViewportView(tblCycles);
-		tblCycles.setModel(cycleModel);
-
-		JPanel pnlButtonGoTo = new JPanel();
-		pnlButtonGoTo.setBackground(new Color(203, 201, 201));
-		pnlButtonGoTo.setBounds(545, 313, 100, 30);
-		mainPanel.add(pnlButtonGoTo);
-
-		JLabel lblGoTo = new JLabel("GOTO Memory");
-		lblGoTo.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		pnlButtonGoTo.add(lblGoTo);
-
-		JScrollPane scrlPaneCodeArea = new JScrollPane();
-		scrlPaneCodeArea.setBounds(24, 40, 400, 532);
-		mainPanel.add(scrlPaneCodeArea);
-
-		txtAreaCode = new JTextArea();
-		scrlPaneCodeArea.setViewportView(txtAreaCode);
 	}
 
 	public void generateListeners() {
@@ -241,14 +229,18 @@ public class MainView extends JFrame {
 		pnlBtnLoad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String[] temp = txtAreaCode.getText().split("\n");
+				String[] temp = textArea.getText().split("\n");
 				instructList.clear();
 				ocModel.clear();
-				for (String line : temp)
+				
+				for (String line : temp) {
+					System.out.println(line);
+					// ERROR HANDLING HERE
 					instructList.add(new Instruction(line));
+				}
 
 				cP.parseCode();
-
+				
 				for (Instruction i : instructList) {
 					ocModel.addRowWithData(i);
 				}
@@ -266,21 +258,57 @@ public class MainView extends JFrame {
 		pnlBtnClear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				txtAreaCode.setText("");
+				textArea.setText("");
 			}
 		});
 
 		tblRegister.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 
-				iRV.getLblReg()
-						.setText(Integer.toString((int) tblRegister.getValueAt(tblRegister.getSelectedRow(), 0)));
+				iRV.getLblReg().setText(Integer.toString((int)tblRegister.getValueAt(tblRegister.getSelectedRow(), 0)));
 				iRV.setVisible(true);
 			}
 		});
 	}
-
+	
 	public static RegisterModel getrModel() {
 		return rModel;
+	}
+}
+		//System.out.println("outside " +instruct);
+		setValueAt(instruct.getValue(), getRowCount() - 1, 0);
+		setValueAt(instruct.getBin().substring(0,6), getRowCount() - 1, 1);
+		setValueAt(instruct.getBin().substring(6,11), getRowCount() - 1, 2);
+		setValueAt(instruct.getBin().substring(11,16), getRowCount() - 1, 3);
+		setValueAt(instruct.getBin().substring(16,21), getRowCount() - 1, 4);
+		setValueAt(instruct.getBin().substring(21,26), getRowCount() - 1, 5);
+		setValueAt(instruct.getBin().substring(26,32), getRowCount() - 1, 6);
+		setValueAt(instruct.getHex(), getRowCount() - 1, 7);
+	}
+	
+	public void clear() {
+		while(getRowCount() != 0) {
+			removeRow(getRowCount() - 1);
+		}
+	}
+
+	public void removeRow(int row) {
+		data.remove(row);
+		fireTableRowsDeleted(row, row);
+	}
+
+	public Object getValueAt(int row, int col) {
+		RowData rData = data.get(row);
+		return rData.getValueAtCol(col);
+	}
+
+	public void setValueAt(Object value, int row, int col) {
+		RowData rData = data.get(row);
+		rData.setValueAtCol(value, col);
+		fireTableCellUpdated(row, col);
+	}
+
+	public boolean isCellEditable(int row, int column) {
+		return false;
 	}
 }

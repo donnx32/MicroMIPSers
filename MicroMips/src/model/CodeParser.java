@@ -61,7 +61,7 @@ public class CodeParser {
 				for (Instruction in : instructList) {
 					if (in.getLabel() != null) {
 						if (in.getLabel().equals(temp[2 + x])) {
-							int diff = ((Integer.parseInt(i.getAddress(), 16) - Integer.parseInt(in.getAddress(), 16))
+							int diff = ((Integer.parseInt(in.getAddress(), 16) - Integer.parseInt(i.getAddress(), 16))
 									/ Integer.parseInt("4", 16)) - 1;
 
 							i.setBin(i.getBin() + zeroExtend(toBin(Integer.toString(diff)), 21));

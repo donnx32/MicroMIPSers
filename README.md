@@ -6,6 +6,8 @@
  - [x] Table Renderers
  - [X] Functionality
  - [ ] **ERROR HANDLING**
+  - [ ] invalid data/reg input
+  - [ ] invalid line or instruction
  - [x] Hex/bin/dec processing
  - [x] More Functionality
  - [ ] Debug

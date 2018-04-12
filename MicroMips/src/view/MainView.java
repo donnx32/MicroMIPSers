@@ -304,20 +304,24 @@ public class MainView extends JFrame {
 				cE.execute(instructList);
 				int ctr = 1;
 
-				for(int i = 0; i < CodeExecutor.cycleList.size(); i++) {
-					String head = ctr + " - " + (ctr + 4);
-					System.out.print(ctr);
-					Cycle c = CodeExecutor.cycleList.get(i);
-					cycleModel.addColumn(head,
-							new Object[] { c.getInstr(), c.getiR(), c.getnPC(), c.getA(), c.getA(), c.getimm(),
-									c.getaluOutput(), c.getcond(), c.getpC(), c.getlMD(), c.getRange(), c.getrN() });
-					ctr += 5;
-				}
+				if(!CodeExecutor.cycleList.isEmpty()) {
+					for(int i = 0; i < CodeExecutor.cycleList.size(); i++) {
+						String head = ctr + " - " + (ctr + 4);
+						System.out.print(ctr);
+						Cycle c = CodeExecutor.cycleList.get(i);
+						cycleModel.addColumn(head,
+								new Object[] { c.getInstr(), c.getiR(), c.getnPC(), c.getA(), c.getA(), c.getimm(),
+										c.getaluOutput(), c.getcond(), c.getpC(), c.getlMD(), c.getRange(), c.getrN() });
+						ctr += 5;
+					}
 				
-				for(int i = 0; i <tblCycles.getColumnCount(); i++) {
-					tblCycles.getColumnModel().getColumn(i).setPreferredWidth(150);
-				}
-				CodeExecutor.cycleList.clear();
+				
+					for(int i = 0; i <tblCycles.getColumnCount(); i++) {
+						tblCycles.getColumnModel().getColumn(i).setPreferredWidth(150);
+					}
+			}
+				instructList.clear();
+				cE.getCycleList().clear();
 			}
 		});
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -21,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import model.CodeExecutor;
 import model.CodeParser;
 import model.Cycle;
+import model.Data;
 import model.DataModel;
 import model.Instruction;
 import model.OpCodeModel;
@@ -64,6 +66,7 @@ public class MainView extends JFrame {
 	private JScrollPane scrlPaneCycle;
 	private JPanel pnlBtnRun1;
 	private JLabel lblRun;
+	private JPanel pnlButtonGoTo;
 
 	public MainView() {
 		setTitle("MicroMIPSers");
@@ -266,7 +269,7 @@ public class MainView extends JFrame {
 		cycleModel.setValueAt("Range aff.", 10, 0);
 		cycleModel.setValueAt("Rn", 11, 0);
 
-		JPanel pnlButtonGoTo = new JPanel();
+		pnlButtonGoTo = new JPanel();
 		pnlButtonGoTo.setBackground(new Color(203, 201, 201));
 		pnlButtonGoTo.setBounds(545, 313, 100, 30);
 		mainPanel.add(pnlButtonGoTo);
@@ -290,15 +293,6 @@ public class MainView extends JFrame {
 		lblRun = new JLabel("Run all");
 		lblRun.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		pnlBtnRun1.add(lblRun);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(203, 201, 201));
-		panel.setBounds(1103, 313, 74, 30);
-		mainPanel.add(panel);
-
-		JLabel lblRun0 = new JLabel("Run Once");
-		lblRun0.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		panel.add(lblRun0);
 	}
 
 	public void generateListeners() {
@@ -379,9 +373,41 @@ public class MainView extends JFrame {
 				iDV.setVisible(true);
 			}
 		});
+		
+		pnlButtonGoTo.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				String a = JOptionPane.showInputDialog(new JFrame("Go To"), "Input address");
+				a = zeroExtend(a,4);
+				String  r = "";
+				for(Data d: DataModel.dataList) {
+					if (d.getAddress().equalsIgnoreCase(a)) {
+						r = d.getRepresentation();
+					}
+				}
+				
+				JOptionPane.showMessageDialog(null, "A address at " + a + " is " + r.toUpperCase());
+			}
+		});
 	}
 
 	public static RegisterModel getrModel() {
 		return rModel;
+	}
+	
+	public String zeroExtend(String s, int n) {
+		StringBuilder sb = null;
+
+		if (s.length() < n) {
+			sb = new StringBuilder();
+			int diff = n - s.length();
+
+			for (int i = 0; i < diff; i++) {
+				sb.append("0");
+			}
+
+			return sb.toString() + "" + s;
+		} else {
+			return s.substring(s.length() - n, s.length());
+		}
 	}
 }

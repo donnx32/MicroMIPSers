@@ -83,12 +83,27 @@ public class CodeExecutor {
 				lmd = "N/A";
 				rn = "N/A";
 				r = "N/A";
-			} else if (i.getOpCode().equals(OpCode.BNEZC.getOpCode())) {
 				
+				alu = zeroExtend(
+						Integer.toString((Integer.parseInt(npc, 16) + (Integer.parseInt(imm, 16) * Integer.parseInt("4", 16)))), 16);
+			} else if (i.getOpCode().equals(OpCode.BNEZC.getOpCode())) {
+				lmd = "N/A";
+				rn = "N/A";
+				r = "N/A";
+				
+				if (RegisterModel.regList.get((binToDec(i.getBin().substring(6, 11)))).equals("0000000000000000")) {
+					cond = "0";
+				}
+				else {
+					cond = "1";
+				}
+				
+				alu = zeroExtend(
+						Integer.toString((Integer.parseInt(npc, 16) + (Integer.parseInt(imm, 16) * Integer.parseInt("4", 16)))), 16);
 			}
 
 			cycleList.add(new Cycle(ins, ir, npc, a, b, imm, alu, cond, lmd, r, rn));
-			System.out.println(ins);
+			/*System.out.println(ins);
 			System.out.println(ir);
 			System.out.println(npc);
 			System.out.println("a = " + a);
@@ -98,7 +113,7 @@ public class CodeExecutor {
 			System.out.println(cond);
 			System.out.println(lmd);
 			System.out.println(r);
-			System.out.println(rn);
+			System.out.println(rn);*/
 		}
 	}
 
@@ -138,7 +153,7 @@ public class CodeExecutor {
 				break;
 			}
 		}
-		System.out.println("res ->" +res);
+		//System.out.println("res ->" +res);
 		return res;
 	}
 	

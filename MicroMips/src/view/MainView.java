@@ -61,7 +61,7 @@ public class MainView extends JFrame {
 	private InputDataView iDV;
 	private JTable tblCycles;
 	private JTable tblData;
-	private JScrollPane scrlPaneCycle; 
+	private JScrollPane scrlPaneCycle;
 	private JPanel pnlBtnRun1;
 	private JLabel lblRun;
 
@@ -89,9 +89,9 @@ public class MainView extends JFrame {
 
 	public void initializeComponents() {
 		System.out.println("Initializing main components...");
-		
+
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
 		mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(255, 228, 225));
@@ -172,7 +172,6 @@ public class MainView extends JFrame {
 		tblRegister.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 		tblRegister.getTableHeader().setResizingAllowed(false);
 		tblRegister.getTableHeader().setReorderingAllowed(false);
-		
 
 		pnlBtnLoad = new JPanel();
 		pnlBtnLoad.setBackground(new Color(203, 201, 201));
@@ -206,20 +205,20 @@ public class MainView extends JFrame {
 		scrlPaneData.setBounds(447, 349, 198, 264);
 		scrlPaneData.getViewport().setBackground(Color.decode("#f6e6dc"));
 		mainPanel.add(scrlPaneData);
-		
+
 		dataModel = new DataModel();
 		tblData = new JTable();
 		tblData.setForeground(Color.BLACK);
 		scrlPaneData.setViewportView(tblData);
 		tblData.setModel(dataModel);
 		tblData.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		tblData.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tblData.getColumnModel().getColumn(1).setPreferredWidth(150);
 		tblData.setRowHeight(23);
 		tblData.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		tblData.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 		tblData.getTableHeader().setResizingAllowed(false);
 		tblData.getTableHeader().setReorderingAllowed(false);
-		
+
 		JLabel lblData = new JLabel("Data");
 		lblData.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		lblData.setBounds(447, 319, 40, 19);
@@ -240,7 +239,7 @@ public class MainView extends JFrame {
 
 		cycleModel = new DefaultTableModel(new Object[] { "Cycle" }, 12);
 		scrlPaneCycle = new JScrollPane();
-		//scrlPaneCycle.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		// scrlPaneCycle.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrlPaneCycle.setBounds(666, 349, 511, 264);
 		scrlPaneCycle.getViewport().setBackground(Color.decode("#f6e6dc"));
 		mainPanel.add(scrlPaneCycle);
@@ -250,11 +249,9 @@ public class MainView extends JFrame {
 		tblCycles.setRowHeight(20);
 		tblCycles.setFont(new Font("Century Gothic", Font.PLAIN, 11));
 
-		tblCycles.getColumnModel().getColumn(0).setPreferredWidth(200);
+		tblCycles.getColumnModel().getColumn(0).setPreferredWidth(150);
 		tblCycles.getTableHeader().setReorderingAllowed(false);
-		tblCycles.getTableHeader().setResizingAllowed(false);		
-		
-		//cycleModel = new CycleModel();
+		tblCycles.getTableHeader().setResizingAllowed(false);
 		tblCycles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		cycleModel.setValueAt("Instruction", 0, 0);
 		cycleModel.setValueAt("IR", 1, 0);
@@ -268,7 +265,7 @@ public class MainView extends JFrame {
 		cycleModel.setValueAt("LMD", 9, 0);
 		cycleModel.setValueAt("Range aff.", 10, 0);
 		cycleModel.setValueAt("Rn", 11, 0);
-		
+
 		JPanel pnlButtonGoTo = new JPanel();
 		pnlButtonGoTo.setBackground(new Color(203, 201, 201));
 		pnlButtonGoTo.setBounds(545, 313, 100, 30);
@@ -284,21 +281,21 @@ public class MainView extends JFrame {
 
 		txtAreaCode = new JTextArea();
 		scrlPaneCodeArea.setViewportView(txtAreaCode);
-		
+
 		pnlBtnRun1 = new JPanel();
 		pnlBtnRun1.setBackground(new Color(203, 201, 201));
 		pnlBtnRun1.setBounds(1019, 313, 74, 30);
 		mainPanel.add(pnlBtnRun1);
-		
+
 		lblRun = new JLabel("Run all");
 		lblRun.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		pnlBtnRun1.add(lblRun);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(203, 201, 201));
 		panel.setBounds(1103, 313, 74, 30);
 		mainPanel.add(panel);
-		
+
 		JLabel lblRun0 = new JLabel("Run Once");
 		lblRun0.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		panel.add(lblRun0);
@@ -306,16 +303,27 @@ public class MainView extends JFrame {
 
 	public void generateListeners() {
 		System.out.println("Generating listeners...");
-		
+
 		pnlBtnRun1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cE.execute(instructList);
-				
-				for(Cycle c: CodeExecutor.cycleList) {
-					cycleModel.addColumn("test", new Object[] {"test", "test", "test", "test", "test", "test", "test", "test", "test"});
+				int ctr = 1;
+
+				for(int i = 0; i < CodeExecutor.cycleList.size(); i++) {
+					String head = ctr + " - " + (ctr + 4);
+					System.out.print(ctr);
+					Cycle c = CodeExecutor.cycleList.get(i);
+					cycleModel.addColumn(head,
+							new Object[] { c.getInstr(), c.getiR(), c.getnPC(), c.getA(), c.getA(), c.getimm(),
+									c.getaluOutput(), c.getcond(), c.getpC(), c.getlMD(), c.getRange(), c.getrN() });
+					ctr += 5;
 				}
 				
+				for(int i = 0; i <tblCycles.getColumnCount(); i++) {
+					tblCycles.getColumnModel().getColumn(i).setPreferredWidth(150);
+				}
+
 			}
 		});
 
@@ -342,7 +350,9 @@ public class MainView extends JFrame {
 				rModel.reset();
 				dataModel.reset();
 				cE.getCycleList().clear();
-				
+				DefaultTableModel model = (DefaultTableModel) tblCycles.getModel();
+				model.setColumnCount(1);
+
 			}
 		});
 
@@ -361,7 +371,7 @@ public class MainView extends JFrame {
 				iRV.setVisible(true);
 			}
 		});
-		
+
 		tblData.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 

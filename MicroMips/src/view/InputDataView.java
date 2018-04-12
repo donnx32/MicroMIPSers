@@ -90,18 +90,13 @@ public class InputDataView extends JFrame {
 
 	public void generateListeners() {
 		pnlBtnOK.addMouseListener(new MouseAdapter() {
-			
-			
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 				Component frame = null;
-				String input; 
+				String input = textField.getText().replaceAll("\\s+", "");; 
 				int check = 0;
 				
-				
-				input =  textField.getText().replaceAll("\\s+", "");
 				
 				if(input.length() > 2) {
 					System.out.println("error in length");
@@ -113,13 +108,14 @@ public class InputDataView extends JFrame {
 				
 				else { 
 					input = zeroExtend(input,2);
-					for(int i = 0; i < input.length(); i++) {
-						if(input.charAt(i) > 70);
-						check += 1;	
-					}
+					System.out.println("Input after zeroExtend: " + input);
+						for(int i = 0; i < input.length(); i++) {
+							if(input.charAt(i) > 'F' || input.charAt(i) < '/');
+							check += 1;	
+						}
 					
-				}
-				
+					
+
 					if(check == 0) {
 						System.out.println("error in validity");
 						JOptionPane.showMessageDialog(frame, "Error: Input is not Valid");
@@ -136,7 +132,7 @@ public class InputDataView extends JFrame {
 						textField.setText("");
 						setVisible(false);
 					}
-					
+				}
 					
 //				lblData.setText("");
 //				textField.setText("");

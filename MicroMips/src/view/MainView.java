@@ -18,16 +18,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import model.CodeExecutor;
 import model.CodeParser;
 import model.Cycle;
-import model.CycleModel;
 import model.DataModel;
 import model.Instruction;
 import model.OpCodeModel;
 import model.RegisterModel;
-import javax.swing.ScrollPaneConstants;
-import java.awt.Panel;
-import java.awt.ScrollPane;
 
 public class MainView extends JFrame {
 
@@ -58,8 +55,8 @@ public class MainView extends JFrame {
 	private static RegisterModel rModel;
 	private DefaultTableModel cycleModel;
 	private ArrayList<Instruction> instructList;
-	private ArrayList<Cycle> cycleList;
 	private CodeParser cP;
+	private CodeExecutor cE;
 	private InputRegisterView iRV;
 	private JTable tblCycles;
 	private JTable tblData;
@@ -81,8 +78,8 @@ public class MainView extends JFrame {
 
 		iRV = new InputRegisterView();
 		instructList = new ArrayList<Instruction>();
-		cycleList = new ArrayList<Cycle>();
 		cP = new CodeParser(instructList);
+		cE = new CodeExecutor();
 
 		initializeComponents();
 		generateListeners();
@@ -298,6 +295,13 @@ public class MainView extends JFrame {
 
 	public void generateListeners() {
 		System.out.println("Generating listeners...");
+		
+		pnlBtnRun.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cE.execute(instructList);
+			}
+		});
 
 		pnlBtnLoad.addMouseListener(new MouseAdapter() {
 			@Override
@@ -309,7 +313,6 @@ public class MainView extends JFrame {
 					instructList.add(new Instruction(line));
 
 				cP.parseCode();
-
 				for (Instruction i : instructList) {
 					ocModel.addRowWithData(i);
 				}
@@ -321,6 +324,7 @@ public class MainView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ocModel.clear();
 				rModel.reset();
+				cE.getCycleList().clear();
 				cycleModel.addColumn(" ");
 			}
 		});
@@ -345,4 +349,6 @@ public class MainView extends JFrame {
 	public static RegisterModel getrModel() {
 		return rModel;
 	}
+	
+	
 }

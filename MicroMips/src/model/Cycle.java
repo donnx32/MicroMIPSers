@@ -17,27 +17,31 @@ public class Cycle {
 	public Cycle() {
 	}
 
-	public Cycle(String instr, String iR, String nPC, String a, String b, String imm, String aluOutput, String cond, String pC, String lMD, String range, String rN) {
-		this.instr = instr;
-		this.iR = iR;
-		this.nPC = nPC;
-		this.a = a;
-		this.b = b;
-		this.imm = imm;
-		this.aluOutput = aluOutput;
-		this.cond = cond;
-		this.pC = pC;
-		this.lMD = lMD;
-		this.range = range;
-		this.rN = rN;
+	public Cycle(String instr, String iR, String nPC, String a, String b, String imm, String aluOutput, String cond, String lMD, String range, String rN) {
+		setInstr(instr);
+		setiR(iR);
+		setnPC(beautify(nPC));
+		setA(beautify(a));
+		setB(beautify(b));
+		setimm(beautify(imm));
+		setaluOutput(beautify(aluOutput));
+		setcond(cond);
+		setpC(nPC);
+		setlMD(lMD);
+		setRange(range);
+		setrN(rN);
+	}
+	
+	public String beautify(String s) {
+		return s.substring(0, 4) + " " +s.substring(4, 8) + " " + s.substring(8, 12) + " " + s.substring(12, 16);
 	}
 	
 	public String getInstr() {
-		return instr;
+		return instr.toUpperCase();
 	}
 
 	public void setInstr(String instr) {
-		this.instr = instr;
+		this.instr = instr.toUpperCase();
 	}
 
 	public String getiR() {
@@ -45,7 +49,7 @@ public class Cycle {
 	}
 
 	public void setiR(String iR) {
-		this.iR = iR;
+		this.iR = iR.toUpperCase();
 	}
 
 	public String getnPC() {
@@ -53,7 +57,7 @@ public class Cycle {
 	}
 
 	public void setnPC(String nPC) {
-		this.nPC = nPC;
+		this.nPC = nPC.toUpperCase();
 	}
 
 	public String getA() {
@@ -61,7 +65,7 @@ public class Cycle {
 	}
 
 	public void setA(String a) {
-		this.a = a;
+		this.a = a.toUpperCase();
 	}
 
 	public String getB() {
@@ -69,7 +73,7 @@ public class Cycle {
 	}
 
 	public void setB(String b) {
-		this.b = b;
+		this.b = b.toUpperCase();
 	}
 
 	public String getimm() {
@@ -77,7 +81,7 @@ public class Cycle {
 	}
 
 	public void setimm(String imm) {
-		this.imm = imm;
+		this.imm = imm.toUpperCase();
 	}
 
 	public String getaluOutput() {
@@ -85,7 +89,7 @@ public class Cycle {
 	}
 
 	public void setaluOutput(String aluOutput) {
-		this.aluOutput = aluOutput;
+		this.aluOutput = aluOutput.toUpperCase();
 	}
 
 	public String getcond() {
@@ -93,7 +97,7 @@ public class Cycle {
 	}
 
 	public void setcond(String cond) {
-		this.cond = cond;
+		this.cond = cond.toUpperCase();
 	}
 
 	public String getpC() {
@@ -101,7 +105,7 @@ public class Cycle {
 	}
 
 	public void setpC(String pC) {
-		this.pC = pC;
+		this.pC = pC.toUpperCase();
 	}
 
 	public String getlMD() {
@@ -109,7 +113,7 @@ public class Cycle {
 	}
 
 	public void setlMD(String lMD) {
-		this.lMD = lMD;
+		this.lMD = lMD.toUpperCase();
 	}
 
 	public String getRange() {
@@ -117,7 +121,7 @@ public class Cycle {
 	}
 
 	public void setRange(String range) {
-		this.range = range;
+		this.range = range.toUpperCase();
 	}
 
 	public String getrN() {
@@ -125,6 +129,6 @@ public class Cycle {
 	}
 
 	public void setrN(String rN) {
-		this.rN = rN;
+		this.rN = rN.toUpperCase();
 	}
 }

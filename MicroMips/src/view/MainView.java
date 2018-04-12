@@ -317,7 +317,7 @@ public class MainView extends JFrame {
 				for(int i = 0; i <tblCycles.getColumnCount(); i++) {
 					tblCycles.getColumnModel().getColumn(i).setPreferredWidth(150);
 				}
-
+				CodeExecutor.cycleList.clear();
 			}
 		});
 

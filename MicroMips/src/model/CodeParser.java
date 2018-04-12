@@ -32,7 +32,7 @@ public class CodeParser {
 				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
 			} else if (temp[0 + x].equalsIgnoreCase("LD") || temp[0 + x].equalsIgnoreCase("SD")) {
 				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[2 + x].substring(5, temp[2].length()))), 5));
-				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 2));
+				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 5));
 				i.setBin(i.getBin() + zeroExtend(hexToBin(temp[2 + x].substring(0, 4)), 16));
 				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
 			} else if (temp[0 + x].equalsIgnoreCase("DADDU")) {
@@ -48,13 +48,13 @@ public class CodeParser {
 						if (in.getLabel().equals(temp[1 + x])) {
 							int diff = ((Integer.parseInt(in.getAddress(), 16) - Integer.parseInt(i.getAddress(), 16))
 									/ Integer.parseInt("4", 16)) - 1;
-							System.out.println("diff" + toBin(Integer.toString(diff)));
+							//System.out.println("diff" + toBin(Integer.toString(diff)));
 							i.setBin(i.getBin() + zeroExtend(toBin(Integer.toString(diff)), 26));
 							break;
 						}
 					}
 				}
-				System.out.println(i.getBin());
+				//System.out.println(i.getBin());
 				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
 			} else if (temp[0 + x].equalsIgnoreCase("BNEZC")) {
 				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 5));

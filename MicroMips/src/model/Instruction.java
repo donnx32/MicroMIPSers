@@ -18,6 +18,7 @@ public class Instruction {
 	public void findOpCode() {
 		for (OpCode oc : OpCode.values()) {
 			if (getValue().toUpperCase().contains(oc.name())) {
+				//System.out.println(oc.getOpCode());
 				this.setOpCode(oc.getOpCode());
 				break;
 			}

@@ -1,12 +1,16 @@
 package client;
 
-import model.OpCode;
+import model.ORConverter;
 
 public class Test {
 
 	public static void main(String[] args) {
 		String t = "012345";
-		System.out.println(t.substring(0,3));
+		System.out.println(t.charAt(1));
+		
+		ORConverter or = new ORConverter();
+		
+		System.out.println(or.OR("0005", "0002"));
 
 	}
 

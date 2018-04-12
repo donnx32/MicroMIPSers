@@ -51,17 +51,18 @@ public class MainView extends JFrame {
 	private JSeparator separator_3;
 	private JSeparator separator_4;
 	private OpCodeModel ocModel;
-	private DataModel dataModel;
+	public static DataModel dataModel;
 	private static RegisterModel rModel;
 	private DefaultTableModel cycleModel;
 	private ArrayList<Instruction> instructList;
 	private CodeParser cP;
 	private CodeExecutor cE;
 	private InputRegisterView iRV;
+	private InputDataView iDV;
 	private JTable tblCycles;
 	private JTable tblData;
 	private JScrollPane scrlPaneCycle; 
-	private JPanel pnlBtnRun;
+	private JPanel pnlBtnRun1;
 	private JLabel lblRun;
 
 	public MainView() {
@@ -77,6 +78,7 @@ public class MainView extends JFrame {
 		setResizable(false);
 
 		iRV = new InputRegisterView();
+		iDV = new InputDataView();
 		instructList = new ArrayList<Instruction>();
 		cP = new CodeParser(instructList);
 		cE = new CodeExecutor();
@@ -174,7 +176,7 @@ public class MainView extends JFrame {
 
 		pnlBtnLoad = new JPanel();
 		pnlBtnLoad.setBackground(new Color(203, 201, 201));
-		pnlBtnLoad.setBounds(139, 583, 74, 30);
+		pnlBtnLoad.setBounds(75, 583, 74, 30);
 		mainPanel.add(pnlBtnLoad);
 
 		lblLoad = new JLabel("Load");
@@ -183,7 +185,7 @@ public class MainView extends JFrame {
 
 		pnlBtnReset = new JPanel();
 		pnlBtnReset.setBackground(new Color(203, 201, 201));
-		pnlBtnReset.setBounds(223, 583, 74, 30);
+		pnlBtnReset.setBounds(174, 583, 74, 30);
 		mainPanel.add(pnlBtnReset);
 
 		lblReset = new JLabel("Reset");
@@ -193,7 +195,7 @@ public class MainView extends JFrame {
 		pnlBtnClear = new JPanel();
 
 		pnlBtnClear.setBackground(new Color(203, 201, 201));
-		pnlBtnClear.setBounds(307, 583, 74, 30);
+		pnlBtnClear.setBounds(275, 583, 74, 30);
 		mainPanel.add(pnlBtnClear);
 
 		lblClear = new JLabel("Clear");
@@ -283,20 +285,29 @@ public class MainView extends JFrame {
 		txtAreaCode = new JTextArea();
 		scrlPaneCodeArea.setViewportView(txtAreaCode);
 		
-		pnlBtnRun = new JPanel();
-		pnlBtnRun.setBackground(new Color(203, 201, 201));
-		pnlBtnRun.setBounds(55, 583, 74, 30);
-		mainPanel.add(pnlBtnRun);
+		pnlBtnRun1 = new JPanel();
+		pnlBtnRun1.setBackground(new Color(203, 201, 201));
+		pnlBtnRun1.setBounds(1019, 313, 74, 30);
+		mainPanel.add(pnlBtnRun1);
 		
-		lblRun = new JLabel("Run");
-		lblRun.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		pnlBtnRun.add(lblRun);
+		lblRun = new JLabel("Run all");
+		lblRun.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		pnlBtnRun1.add(lblRun);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(203, 201, 201));
+		panel.setBounds(1103, 313, 74, 30);
+		mainPanel.add(panel);
+		
+		JLabel lblRun0 = new JLabel("Run Once");
+		lblRun0.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		panel.add(lblRun0);
 	}
 
 	public void generateListeners() {
 		System.out.println("Generating listeners...");
 		
-		pnlBtnRun.addMouseListener(new MouseAdapter() {
+		pnlBtnRun1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cE.execute(instructList);
@@ -324,6 +335,7 @@ public class MainView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ocModel.clear();
 				rModel.reset();
+				dataModel.reset();
 				cE.getCycleList().clear();
 				cycleModel.addColumn(" ");
 			}
@@ -344,11 +356,17 @@ public class MainView extends JFrame {
 				iRV.setVisible(true);
 			}
 		});
+		
+		tblData.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+
+				iDV.getlblData().setText((String) tblData.getValueAt(tblData.getSelectedRow(), 0));
+				iDV.setVisible(true);
+			}
+		});
 	}
 
 	public static RegisterModel getrModel() {
 		return rModel;
 	}
-	
-	
 }

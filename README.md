@@ -6,13 +6,13 @@
  - [x] Table Renderers
  - [X] Functionality
  - [ ] **ERROR HANDLING**
-  - [ ] invalid data/reg input
+  - [x] invalid data/reg input
   - [ ] invalid line or instruction
  - [x] Hex/bin/dec processing
  - [x] More Functionality
- - [ ] Debug
- - [ ] **Cycles**
- - [ ] **Reflect code to memory**
+ - [x] Debug
+ - [x] **Cycles**
+ - [x] **Reflect code to memory**
   - [x] Code Parser
-  - [ ] more? idk
- - [ ] Functionality lol.
+  - [x] more? idk
+ - [x] Functionality lol.

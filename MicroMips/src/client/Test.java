@@ -1,6 +1,7 @@
 package client;
 
 import model.ORConverter;
+import model.OpCode;
 
 public class Test {
 
@@ -10,10 +11,10 @@ public class Test {
 		
 		ORConverter or = new ORConverter();
 		
-		System.out.println(getHexA("1"));
-		System.out.println("#123".replaceAll("[^\\.0123456789]",""));
+		System.out.println(getHexA("1123ar"));
+		System.out.println(OpCode.DADDIU);
 	}
 	public static String getHexA(String s) {
-		return s.replaceAll("[^\\.0123456789ABCDEF]","");
+		return s.replaceAll("[^\\.0123456789]","");
 	}
 }

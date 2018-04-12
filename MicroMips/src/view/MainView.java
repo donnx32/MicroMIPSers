@@ -24,6 +24,7 @@ import model.CodeParser;
 import model.Cycle;
 import model.Data;
 import model.DataModel;
+import model.ErrorHandler;
 import model.Instruction;
 import model.OpCodeModel;
 import model.RegisterModel;
@@ -288,6 +289,7 @@ public class MainView extends JFrame {
 		pnlBtnRun1 = new JPanel();
 		pnlBtnRun1.setBackground(new Color(203, 201, 201));
 		pnlBtnRun1.setBounds(1019, 313, 74, 30);
+		pnlBtnRun1.setVisible(false);
 		mainPanel.add(pnlBtnRun1);
 
 		lblRun = new JLabel("Run all");
@@ -322,6 +324,8 @@ public class MainView extends JFrame {
 			}
 				instructList.clear();
 				cE.getCycleList().clear();
+				
+				pnlBtnRun1.setVisible(false);
 			}
 		});
 
@@ -331,12 +335,24 @@ public class MainView extends JFrame {
 				String[] temp = txtAreaCode.getText().split("\n");
 				instructList.clear();
 				ocModel.clear();
-				for (String line : temp)
+				ErrorHandler er = new ErrorHandler();
+				boolean bol = true;
+				
+				for (String line : temp) {
+					
+					if(!er.check(line)) {
+						bol = false;
+						break;
+					}
 					instructList.add(new Instruction(line));
-
-				cP.parseCode();
-				for (Instruction i : instructList) {
-					ocModel.addRowWithData(i);
+				}
+				
+				if (bol) {
+					cP.parseCode()	;
+					for (Instruction i : instructList) {
+						ocModel.addRowWithData(i);
+					}
+					pnlBtnRun1.setVisible(true);
 				}
 			}
 		});
@@ -350,7 +366,7 @@ public class MainView extends JFrame {
 				cE.getCycleList().clear();
 				DefaultTableModel model = (DefaultTableModel) tblCycles.getModel();
 				model.setColumnCount(1);
-
+				pnlBtnRun1.setVisible(false);
 			}
 		});
 

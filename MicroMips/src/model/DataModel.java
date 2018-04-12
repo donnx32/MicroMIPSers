@@ -30,8 +30,8 @@ public class DataModel extends AbstractTableModel {
 	
 	public void reset() {
 		for (int i = 0; i < dataList.size(); i++) {
-			dataList.get(i).setRepresentation("0000000000000000");
-			setValueAt(dataList.get(i).getAddress(), i, 1);
+			dataList.get(i).setRepresentation("00");
+			setValueAt(dataList.get(i).getRepresentation(), i, 1);
 		}
 	}
 

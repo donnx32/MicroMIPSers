@@ -12,17 +12,10 @@ public class RegisterModel extends AbstractTableModel {
 	public static ArrayList<Register> regList;
 
 	public RegisterModel() {
-		initializeDefaultModel();
-	}
-
-	public void initializeDefaultModel() {
 		header = new String[] { "Register", "Value" };
 		data = new ArrayList<RowData>();
 		regList = new ArrayList<Register>();
-		for (int row = 0; row < getRowCount(); row++) {
-			for (int col = 0; col < getColumnCount(); col++)
-				fireTableCellUpdated(row, col);
-		}
+		initializeDefaultRegisters();
 	}
 
 	public void initializeDefaultRegisters() {

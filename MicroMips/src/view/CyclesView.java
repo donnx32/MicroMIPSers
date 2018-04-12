@@ -79,25 +79,8 @@ public class CyclesView {
 		scrollPane.setViewportView(table);
 		table.setColumnSelectionAllowed(true);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new Integer(1), "IR", "DC41 1000", null, new Integer(6), "IR", "DC41"},
-				{null, "NPC", "0000 0000 0000 0004", null, null, "NPC", "0000 0000 000 0004"},
-				{null, null, null, null, null, null, null},
-				{new Integer(2), "A", "0000 0000 0000 0008", null, new Integer(7), "A", null},
-				{null, "B", "0000 0000 0000 0002", null, null, "B", null},
-				{null, "IMM", null, null, null, "IMM", null},
-				{null, null, null, null, null, null, null},
-				{new Integer(3), "ALUOUTPUT", "0000 0000 0000 1008", null, new Integer(8), "ALUOUTPUT", null},
-				{null, "COND", "0", null, null, "COND", null},
-				{null, null, null, null, null, null, null},
-				{new Integer(4), "PC", "0000 0000 0000 0004", null, new Integer(9), "PC", null},
-				{null, "LMD", "5544 3322 11EF CDAB", null, null, "LMD", null},
-				{null, "Range", "N/A", null, null, "Range", null},
-				{null, null, null, null, null, null, null},
-				{new Integer(5), "Rn", "5544 3322 11EF CDAB", null, new Integer(10), "Rn", null},
-			},
+			new Object[][] {},
 			new String[] {
-				"Cycle No.", "Name", "Result", "", "Cycle No.", "Name", "Result"
 			}
 		) {
 			Class[] columnTypes = new Class[] {

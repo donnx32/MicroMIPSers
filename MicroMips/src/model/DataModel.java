@@ -12,23 +12,16 @@ public class DataModel extends AbstractTableModel {
 	public static ArrayList<Data> dataList;
 
 	public DataModel() {
-		initializeDefaultModel();
-	}
-
-	public void initializeDefaultModel() {
-		header = new String[] { "Register", "Value" };
+		header = new String[] { "Address", "Representation" };
 		data = new ArrayList<RowData>();
 		dataList = new ArrayList<Data>();
-		for (int row = 0; row < getRowCount(); row++) {
-			for (int col = 0; col < getColumnCount(); col++)
-				fireTableCellUpdated(row, col);
-		}
+		initializeDefaultData();
 	}
 
-	public void initializeDefaultRegisters() {
+	public void initializeDefaultData() {
 		System.out.println("Initializing Default Register model...");
 
-		for (int i = 0; i < 32; i++) {
+		for (int i = 0; i < 256; i++) {
 			Data d = new Data();
 			dataList.add(d);
 			addRowWithData(d);

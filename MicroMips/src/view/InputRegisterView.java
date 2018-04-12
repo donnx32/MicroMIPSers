@@ -27,7 +27,7 @@ public class InputRegisterView extends JFrame {
 	public InputRegisterView() {
 		setTitle("Register Input");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 300, 200);
+		setBounds(100, 100, 300, 180);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -43,13 +43,13 @@ public class InputRegisterView extends JFrame {
 	private void initializeComponents() {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 228, 225));
-		panel.setBounds(10, 11, 264, 139);
+		panel.setBounds(10, 11, 274, 129);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		pnlBtnOK = new JPanel();
 		pnlBtnOK.setBackground(new Color(203, 201, 201));
-		pnlBtnOK.setBounds(25, 99, 100, 30);
+		pnlBtnOK.setBounds(25, 88, 100, 30);
 		panel.add(pnlBtnOK);
 
 		JLabel lblOkay = new JLabel("OK");
@@ -59,7 +59,7 @@ public class InputRegisterView extends JFrame {
 		pnlBtnCancel = new JPanel();
 
 		pnlBtnCancel.setBackground(new Color(203, 201, 201));
-		pnlBtnCancel.setBounds(135, 99, 100, 30);
+		pnlBtnCancel.setBounds(139, 88, 100, 30);
 		panel.add(pnlBtnCancel);
 
 		JLabel lblCancel = new JLabel("Cancel");
@@ -76,7 +76,7 @@ public class InputRegisterView extends JFrame {
 		panel.add(separator);
 
 		textField = new JTextField();
-		textField.setBounds(10, 46, 244, 30);
+		textField.setBounds(10, 36, 254, 30);
 		panel.add(textField);
 		textField.setColumns(10);
 

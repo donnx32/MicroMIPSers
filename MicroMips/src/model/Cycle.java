@@ -1,20 +1,43 @@
 package model;
 
 public class Cycle {
+	private String instr;
 	private String iR;
 	private String nPC;
 	private String a;
 	private String b;
-	private String iMM;
-	private String aLUOUTPUT;
-	private String cOND;
+	private String imm;
+	private String aluOutput;
+	private String cond;
 	private String pC;
 	private String lMD;
 	private String range;
 	private String rN;
-
+	
 	public Cycle() {
+	}
 
+	public Cycle(String instr, String iR, String nPC, String a, String b, String imm, String aluOutput, String cond, String pC, String lMD, String range, String rN) {
+		this.instr = instr;
+		this.iR = iR;
+		this.nPC = nPC;
+		this.a = a;
+		this.b = b;
+		this.imm = imm;
+		this.aluOutput = aluOutput;
+		this.cond = cond;
+		this.pC = pC;
+		this.lMD = lMD;
+		this.range = range;
+		this.rN = rN;
+	}
+	
+	public String getInstr() {
+		return instr;
+	}
+
+	public void setInstr(String instr) {
+		this.instr = instr;
 	}
 
 	public String getiR() {
@@ -49,28 +72,28 @@ public class Cycle {
 		this.b = b;
 	}
 
-	public String getiMM() {
-		return iMM;
+	public String getimm() {
+		return imm;
 	}
 
-	public void setiMM(String iMM) {
-		this.iMM = iMM;
+	public void setimm(String imm) {
+		this.imm = imm;
 	}
 
-	public String getaLUOUTPUT() {
-		return aLUOUTPUT;
+	public String getaluOutput() {
+		return aluOutput;
 	}
 
-	public void setaLUOUTPUT(String aLUOUTPUT) {
-		this.aLUOUTPUT = aLUOUTPUT;
+	public void setaluOutput(String aluOutput) {
+		this.aluOutput = aluOutput;
 	}
 
-	public String getcOND() {
-		return cOND;
+	public String getcond() {
+		return cond;
 	}
 
-	public void setcOND(String cOND) {
-		this.cOND = cOND;
+	public void setcond(String cond) {
+		this.cond = cond;
 	}
 
 	public String getpC() {

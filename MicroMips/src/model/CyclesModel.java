@@ -22,19 +22,19 @@ public class CyclesModel {
 		cycle.setnPC(Double.toHexString(address));
 		cycle.setA(instruction.getBin().substring(7, 11));
 		cycle.setB(instruction.getBin().substring(12, 16));
-		cycle.setiMM(instruction.getBin().substring(17, 32));
+		cycle.setimm(instruction.getBin().substring(17, 32));
 		
 		//LD
 		if (instruction.getOpCode().equals("110111"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
-			int temp2 = Integer.parseInt(cycle.getiMM());
+			int temp2 = Integer.parseInt(cycle.getimm());
 			
 			int result = temp1 + temp2;			
 			
-			cycle.setaLUOUTPUT(String.format ("%016d", result));
+			cycle.setaluOutput(String.format ("%016d", result));
 			
-			cycle.setcOND("0");
+			cycle.setcond("0");
 			
 			cycle.setpC(cycle.getnPC());;
 		//	LMD = DEPENDE SA MEMORY
@@ -47,12 +47,12 @@ public class CyclesModel {
 		else if (instruction.getOpCode().equals("111111"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
-			int temp2 = Integer.parseInt(cycle.getiMM());
+			int temp2 = Integer.parseInt(cycle.getimm());
 			
 			int result = temp1 + temp2;			
 			
-			cycle.setaLUOUTPUT(String.format ("%016d", result));
-			cycle.setcOND("0");
+			cycle.setaluOutput(String.format ("%016d", result));
+			cycle.setcond("0");
 			
 			cycle.setpC(cycle.getnPC());;
 			cycle.setlMD("N/A");
@@ -65,18 +65,18 @@ public class CyclesModel {
 		else if (instruction.getOpCode().equals("011001"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
-			int temp2 = Integer.parseInt(cycle.getiMM());
+			int temp2 = Integer.parseInt(cycle.getimm());
 			
 			int result = temp1 + temp2;			
 			
-			cycle.setaLUOUTPUT(String.format ("%016d", result));
-			cycle.setcOND("0");
+			cycle.setaluOutput(String.format ("%016d", result));
+			cycle.setcond("0");
 			
 			cycle.setpC(cycle.getnPC());;
 			cycle.setlMD("N/A");
 			cycle.setRange("N/A");
 			
-			cycle.setrN(cycle.getaLUOUTPUT());
+			cycle.setrN(cycle.getaluOutput());
 			
 		}
 		
@@ -88,31 +88,31 @@ public class CyclesModel {
 			
 			int result = temp1 + temp2;			
 			
-			cycle.setaLUOUTPUT(String.format ("%016d", result));
-			cycle.setcOND("0");
+			cycle.setaluOutput(String.format ("%016d", result));
+			cycle.setcond("0");
 			
 			cycle.setpC(cycle.getnPC());;
 			cycle.setlMD("N/A");
 			cycle.setRange("N/A");
 			
-			cycle.setrN(cycle.getaLUOUTPUT());	
+			cycle.setrN(cycle.getaluOutput());	
 		}
 		
 		//BC
 		else if (instruction.getOpCode().equals("110010"))
 		{
 			int count;
-			count = Integer.parseInt(cycle.getiMM(), 2);
+			count = Integer.parseInt(cycle.getimm(), 2);
 			int tempNPC = Integer.parseInt(cycle.getnPC());
 			
 			while (count > 0)
 			{
 				tempNPC = tempNPC + 4;
 			}
-			cycle.setaLUOUTPUT(Integer.toHexString(tempNPC));
-			cycle.setcOND("1");
+			cycle.setaluOutput(Integer.toHexString(tempNPC));
+			cycle.setcond("1");
 			
-			cycle.setpC(cycle.getaLUOUTPUT());
+			cycle.setpC(cycle.getaluOutput());
 			cycle.setlMD("N/A");
 			cycle.setRange("N/A");
 			
@@ -124,25 +124,25 @@ public class CyclesModel {
 		else if (instruction.getOpCode().equals("111110"))
 		{
 			int count;
-			count = Integer.parseInt(cycle.getiMM(), 2);
+			count = Integer.parseInt(cycle.getimm(), 2);
 			int tempNPC = Integer.parseInt(cycle.getnPC());
 			
 			while (count > 0)
 			{
 				tempNPC = tempNPC + 4;
 			}
-			cycle.setaLUOUTPUT(Integer.toHexString(tempNPC));
+			cycle.setaluOutput(Integer.toHexString(tempNPC));
 			
 			//If A is 0 then tru
 			if (cycle.getA().equals("00000"))
 			{
-				cycle.setcOND("0");
+				cycle.setcond("0");
 				cycle.setnPC(cycle.getnPC());
 			}
 			else 
 			{
-				cycle.setcOND("1");
-				cycle.setpC(cycle.getaLUOUTPUT());
+				cycle.setcond("1");
+				cycle.setpC(cycle.getaluOutput());
 			}
 					
 				
@@ -157,18 +157,18 @@ public class CyclesModel {
 		else if (instruction.getOpCode().equals("111110"))
 		{
 			int temp1 = Integer.parseInt(cycle.getA());
-			int temp2 = Integer.parseInt(cycle.getiMM());
+			int temp2 = Integer.parseInt(cycle.getimm());
 			
 			int result = temp1 + temp2;			
 			
-			cycle.setaLUOUTPUT(String.format ("%016d", result));
-			cycle.setcOND("0");
+			cycle.setaluOutput(String.format ("%016d", result));
+			cycle.setcond("0");
 			
 			//PC = Where the Jump is;
 			cycle.setlMD("N/A");
 			cycle.setRange("N/A");
 				
-			cycle.setrN(cycle.getaLUOUTPUT());	
+			cycle.setrN(cycle.getaluOutput());	
 							
 		}
 		

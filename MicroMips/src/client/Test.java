@@ -10,8 +10,10 @@ public class Test {
 		
 		ORConverter or = new ORConverter();
 		
-		System.out.println(or.OR("0005", "0002"));
+		System.out.println(getHexA("23BAB"));
 
 	}
-
+	public static String getHexA(String s) {
+		return s.replaceAll("[^\\.0123456789A]","");
+	}
 }

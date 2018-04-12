@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import view.MainView;
 
 public class CodeExecutor {
-	private ArrayList<Cycle> cycleList;
+	public static ArrayList<Cycle> cycleList;
 	private ORConverter or;
 	
 	public CodeExecutor() {

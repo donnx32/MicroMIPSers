@@ -311,6 +311,11 @@ public class MainView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cE.execute(instructList);
+				
+				for(Cycle c: CodeExecutor.cycleList) {
+					cycleModel.addColumn("test", new Object[] {"test", "test", "test", "test", "test", "test", "test", "test", "test"});
+				}
+				
 			}
 		});
 
@@ -337,7 +342,7 @@ public class MainView extends JFrame {
 				rModel.reset();
 				dataModel.reset();
 				cE.getCycleList().clear();
-				cycleModel.addColumn(" ");
+				
 			}
 		});
 

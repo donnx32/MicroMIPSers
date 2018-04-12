@@ -28,7 +28,7 @@ public class CodeParser {
 			if (temp[0 + x].equalsIgnoreCase("DADDIU") || temp[0 + x].equalsIgnoreCase("ORI")) {
 				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[2 + x])), 5));
 				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[1 + x])), 5));
-				i.setBin(i.getBin() + zeroExtend(hexToBin(temp[3 + x].substring(1, 5)), 16));
+				i.setBin(i.getBin() + zeroExtend(hexToBin(getHex(temp[3 + x])), 16));
 				i.setHex(zeroExtend(binToHex(i.getBin()), 8));
 			} else if (temp[0 + x].equalsIgnoreCase("LD") || temp[0 + x].equalsIgnoreCase("SD")) {
 				i.setBin(i.getBin() + zeroExtend(toBin(getDigit(temp[2 + x].substring(5, temp[2].length()))), 5));
@@ -134,5 +134,9 @@ public class CodeParser {
 
 	public String getDigit(String s) {
 		return s.replaceAll("\\D+", "");
+	}
+	
+	public String getHex(String s) {
+		return s.replaceAll("[^\\0123456789ABCDEF]","");
 	}
 }

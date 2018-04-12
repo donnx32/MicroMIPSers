@@ -137,6 +137,6 @@ public class CodeParser {
 	}
 	
 	public String getHex(String s) {
-		return s.replaceAll("[^\\0123456789ABCDEF]","");
+		return s.replaceAll("[^\\.0123456789ABCDEF]","");
 	}
 }

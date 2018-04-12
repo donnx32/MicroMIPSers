@@ -1,12 +1,14 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -88,15 +90,57 @@ public class InputDataView extends JFrame {
 
 	public void generateListeners() {
 		pnlBtnOK.addMouseListener(new MouseAdapter() {
+			
+			
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Data d = DataModel.dataList.get(getDataIndex(lblData.getText()));
-				d.setRepresentation(textField.getText());
-				MainView.dataModel.setValueAt(d.getRepresentation(), getDataIndex(lblData.getText()), 1);
 				
-				lblData.setText("");
-				textField.setText("");
-				setVisible(false);
+				Component frame = null;
+				String input; 
+				int check = 0;
+				
+				
+				input =  textField.getText().replaceAll("\\s+", "");
+				
+				if(input.length() > 2) {
+					System.out.println("error in length");
+					JOptionPane.showMessageDialog(frame, "Error: Maximum Number Reached");
+					lblData.setText("");
+					textField.setText("");
+					setVisible(false);
+				}
+				
+				else { 
+					input = zeroExtend(input,2);
+					for(int i = 0; i < input.length(); i++) {
+						if(input.charAt(i) > 70);
+						check += 1;	
+					}
+					
+				}
+				
+					if(check == 0) {
+						System.out.println("error in validity");
+						JOptionPane.showMessageDialog(frame, "Error: Input is not Valid");
+						lblData.setText("");
+						textField.setText("");
+						setVisible(false);
+					}
+					
+					else {
+						Data d = DataModel.dataList.get(getDataIndex(lblData.getText()));
+						d.setRepresentation(input);
+						MainView.dataModel.setValueAt(d.getRepresentation(), getDataIndex(lblData.getText()), 1);
+						lblData.setText("");
+						textField.setText("");
+						setVisible(false);
+					}
+					
+					
+//				lblData.setText("");
+//				textField.setText("");
+//				setVisible(false);
 			}
 		});
 
@@ -126,4 +170,22 @@ public class InputDataView extends JFrame {
 		
 		return index;
 	}
+	
+	public String zeroExtend(String s, int n) {
+		StringBuilder sb = null;
+
+		if (s.length() < n) {
+			sb = new StringBuilder();
+			int diff = n - s.length();
+
+			for (int i = 0; i < diff; i++) {
+				sb.append("0");
+			}
+
+			return sb.toString() + "" + s;
+		} else {
+			return s.substring(s.length() - n,s.length());
+		}
+	}
+
 }

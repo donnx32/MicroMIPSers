@@ -110,13 +110,13 @@ public class InputDataView extends JFrame {
 					input = zeroExtend(input,2);
 					System.out.println("Input after zeroExtend: " + input);
 						for(int i = 0; i < input.length(); i++) {
-							if(input.charAt(i) > 'F' || input.charAt(i) < '/');
-							check += 1;	
+							if(input.charAt(i) > 'F' )
+								check += 1;	
 						}
 					
 					
 
-					if(check == 0) {
+					if(check > 0) {
 						System.out.println("error in validity");
 						JOptionPane.showMessageDialog(frame, "Error: Input is not Valid");
 						lblData.setText("");

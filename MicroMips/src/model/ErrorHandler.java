@@ -65,7 +65,7 @@ public class ErrorHandler {
 							JOptionPane.ERROR_MESSAGE);
 					return false;
 				}
-				if (Integer.parseInt(getHex(temp[2 + x].substring(0, 4)), 16) > Integer.parseInt("FF", 16)) {
+				if (Integer.parseInt(getHex(temp[2 + x].substring(0, 4)), 16) > Integer.parseInt("F7", 16)) {
 					JOptionPane.showMessageDialog(new JPanel(), "Invalid data address! Too big", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}

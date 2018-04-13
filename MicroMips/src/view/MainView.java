@@ -338,6 +338,7 @@ public class MainView extends JFrame {
 				ErrorHandler er = new ErrorHandler();
 				boolean bol = true;
 				
+				
 				for (String line : temp) {
 					
 					if(!er.check(line)) {
